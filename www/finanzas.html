@@ -20,45 +20,6 @@
 	
   <script type="text/javascript" src="js/misfinanzas.js"></script>
 
-
-	<script type="text/javascript" charset="utf-8">
-    $('inicio_finanzas').ready(function() {
-        var d=new Date();
-        var dat=d.getDate();
-        var mon=d.getMonth();
-        var year=d.getFullYear();
-        
-        var todayDateD = year+"-"+setDateZero(mon)+"-"+setDateZero(dat);
-        $('#f_desde').val(todayDateD);
-
-        var monH=d.getMonth()+1;
-        var todayDateH = year +"-"+ setDateZero(monH) +"-"+ setDateZero(dat);
-        $('#f_hasta').val(todayDateH);
-        
-        $( "#ingresos-tabla" ).table( "refresh" );
-        configurar_db()
-        RealizarLaConsulta();
-	});
-
-	function historia(tx) {
-		window.location.href = "finanzas.html#historicos";
-		ConsultarHistoriaIngre();
-		ConsultarHistoriaEgr();
-    }
-	
-	function RealizarLaConsulta(tx) {
-       RealizarConsultaIngre();
-       RealizarConsultaEgre();
-       RealizarSumaIngresos();
-    }
-	
-	function volver_inicio() {
-       window.location.href = "index.html";
-    }
-	
-	
-    </script>
-
     <style type="text/css">
         .logo img{
             width: 100%;
@@ -85,26 +46,61 @@
 			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
 		</div>
     <div data-role="content">
-      <!--<form id="form_inicio_finanzas">-->
-        <div id="width:70%;" >
-               <label for="desde">Desde:</label>
-               <input type="date" name="desde" id="f_desde" onchange="RealizarLaConsulta()"/>
-               <label for="hasta">Hasta:</label>
-               <input type="date" name="hasta" id="f_hasta" onchange="RealizarLaConsulta()"/>
+      <div class="imagen-head">
+        <img src="img/finanzas.png" >
+        <div class="balance">
+          <label>Balance total</label>
+          <p id="sActual">0</p>
+          <button class="btn-historico" type="button" data-mini="true" data-inline="true">Ver histórico</button>
         </div>
-        <div data-role="fieldcontain">
-            <a href="javascript:historia()">Ver historia</a><br>
-        </div>
-        <div data-role="fieldcontain">
-            <label for="sActual">Ahorro en el periodo:</label><br>
-            <input type="number" name="sActual" id="sActual"/>
-        </div>
-        <div data-role="fieldcontain">
-            <div data-role="header">
-                <h5 style="font-size:10px !important;">Ingresos totales: </h5>
-				<button type="button" data-icon="gear" class="ui-btn-right" onclick="javascript:formu_ing()" >+</button>
-            </div>
-            <table data-role="table" id="ingresos-tabla" data-mode="reflow" class="ui-responsive table-stroke">
+      </div>
+
+
+      <h2 class="subtitulo">Rango de balance</h2>
+
+      <div class="entradas-fechas">
+        <table>
+              <tbody>
+                <tr>
+                  <td><label for="desde">Desde:</label></td>
+                  <td><label for="hasta">Hasta:</label></td>
+                </tr>
+                <tr class="center">
+                  <td><input type="date" name="desde" id="f_desde" onchange="RealizarLaConsulta()"/></td>
+                  <td><input type="date" name="hasta" id="f_hasta" onchange="RealizarLaConsulta()"/></td>
+                </tr>
+              </tbody>
+        </table>
+      </div>
+      
+
+      <div class="titulo-bg">
+          <label>Ingresos totales</label>
+          <button class="btn-agregar-ingreso" data-icon="plus" type="button" data-inline="true" data-iconpos="notext">Agregar</button>
+      </div>
+
+      <table data-role="table" id="ingresos-tabla" data-mode="no-reflow" class="table-stroke">
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Monto</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+
+
+
+      <div class="titulo-bg">
+          <label>Egresos totales</label>
+          <button class="btn-agregar-egreso" data-icon="plus" type="button" data-inline="true" data-iconpos="notext">Agregar</button>
+      </div>
+
+
+
+      <table data-role="table" id="egresos-tabla" data-mode="no-reflow" class="table-stroke">
               <thead>
                 <tr>
                   <th>Tipo</th>
@@ -115,26 +111,9 @@
               <tbody>
               </tbody>
             </table>
-        </div>
-        <div data-role="fieldcontain">
-            <div data-role="header">
-                <h5 style="font-size:10px !important;">Gastos totales: </h5>
-				<button type="button" data-icon="gear" class="ui-btn-right" onclick="javascript:formu_Egre()" >+</button>
-            </div>
-            <table data-role="table" id="egresos-tabla" data-mode="reflow" class="ui-responsive table-stroke">
-              <thead>
-                <tr>
-                  <th>Tipo</th>
-                  <th>Monto</th>
-                  <th>Fecha</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-        </div>
-      <!--</form>-->
+
     </div>
+
 	<div data-role="footer">
 			<div>
 				<a href="javascript:ir_ppal('map-page')" id="flink-puntos" data-transition="slide">
@@ -232,12 +211,31 @@
 			<h1>Histórico</h1>
 	  </div>
 	  <div data-role="content">
-      <form id="form_historico">
-        <div data-role="fieldcontain">
-           <div data-role="header">
-                <h5 style="font-size:10px !important;">Ingresos totales</h5>
-           </div>
-           <table data-role="table" id="ingresos_historico" data-mode="reflow" class="ui-responsive table-stroke">
+      <div class="titulo-bg">
+        <label>Ingresos</label>
+      </div>
+        
+      <div data-role="fieldcontain">
+        <table data-role="table" id="ingresos_historico" data-mode="no-reflow" class="table-stroke">
+          <thead>
+              <tr>
+                  <th>Monto</th>
+                  <th>Fecha</th>
+				          <th>Tipo</th>
+				          <th>Nota</th>
+              </tr>
+              </thead>
+              <tbody>
+              </tbody>
+        </table>
+      </div>
+
+      <div class="titulo-bg">
+        <label>Egresos</label>
+      </div>
+
+      <div data-role="fieldcontain"> 
+            <table data-role="table" id="egresos_historico" data-mode="no-reflow" class="table-stroke">
               <thead>
                 <tr>
                   <th>Monto</th>
@@ -249,42 +247,25 @@
               <tbody>
               </tbody>
             </table>
-        </div>
-        <div data-role="fieldcontain">
-             <div data-role="header">
-                <h5 style="font-size:10px !important;">Gastos totales</h5>
-            </div> 
-            <table data-role="table" id="egresos_historico" data-mode="reflow" class="ui-responsive table-stroke">
-              <thead>
-                <tr>
-                  <th>Monto</th>
-                  <th>Fecha</th>
-				  <th>Tipo</th>
-				  <th>Nota</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-        </div>
-      </form>
+      </div>
     </div>    
-	  <div data-role="footer">
-  		<div>
-  			<a href="#map-page" id="flink-puntos" data-transition="slide">
-  				<span></span>
-  			</a>
-  			<a href="#portafolio" id="flink-portafolio" data-transition="slide">
-  				<span></span>
-  			</a>
-  			<a href="javascript:solicitar_asesoria('finan')" id="flink-asesoria" data-transition="slide">
-  				<span></span>
-  			</a>
-  			<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
-  				<span></span>
-  			</a>
-  		</div>
-  	 </div>
+      
+      <div data-role="footer">
+    		<div>
+    			<a href="#map-page" id="flink-puntos" data-transition="slide">
+    				<span></span>
+    			</a>
+    			<a href="#portafolio" id="flink-portafolio" data-transition="slide">
+    				<span></span>
+    			</a>
+    			<a href="javascript:solicitar_asesoria('finan')" id="flink-asesoria" data-transition="slide">
+    				<span></span>
+    			</a>
+    			<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+    				<span></span>
+    			</a>
+    		</div>
+  	  </div>
 </div>
 	
 

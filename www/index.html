@@ -21,6 +21,7 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="js/fnamascerca.js"></script>
 	<script type="text/javascript" src="js/portafolio.js"></script>
+	<script type="text/javascript" src="js/asesoria.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 
 </head>
@@ -28,7 +29,7 @@
 
 
 	<div data-role="page" id="inicio" data-transition="slide">
-		<div data-role="header">
+		<div data-role="header" data-position="fixed">
 			<h1>Inicio</h1>
 			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
 		</div>
@@ -45,7 +46,7 @@
 						<span></span>
 						<label>Portafolio de servicios</label>
 					</a>
-					<a href="#" id="link-asesoria" data-transition="slide">
+					<a href="#asesoria" id="link-asesoria" data-transition="slide">
 						<span></span>
 						<label>Asesoría personalizada</label>
 					</a>
@@ -65,7 +66,7 @@
 
 
 	<div data-role="page" id="map-page">
-		<div data-role="header">
+		<div data-role="header" >
 			<a href="#inicio" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
 			<h1>FNA más cercano</h1>
 			<a href="#filter-maps" class="ui-btn-right btn-filter" data-transition="slidedown" data-rel="dialog" data-theme="b"><i class="icon-filter"></i><i class="label">Filtro</i></a>
@@ -81,7 +82,7 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="#" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
 				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
@@ -136,7 +137,7 @@
 			<br>
 			<textarea id="input-opinion" rows="3" maxlength="140" placeholder="Escribe tu opinión"></textarea>
 			<br>
-			<a href="#" data-rel="back" data-inline="true" data-role="button">Cancelar</a>
+			<a href="#map-page" data-inline="true" data-role="button">Cancelar</a>
 			<a href="#" data-inline="true" data-role="button" data-theme="b">Puntuar</a>
 		</div>
 	</div>
@@ -191,7 +192,7 @@
 
 
 	<div data-role="page" id="portafolio" class="imagen-header" >
-		<div data-role="header">
+		<div data-role="header" data-position="fixed">
 			<a href="#inicio" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
 			<h1>Servicios</h1>
 			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
@@ -199,7 +200,7 @@
 		<div data-role="content">
 			<div class="imagen-head">
 				<img src="img/portafolio.png" >
-				<p>Conoce todos nuestros <br> servicios</p>
+				<p class="titulo">Conoce todos nuestros <br> servicios</p>
 			</div>
 	        <ul class="lista-portafolio" data-corners="false" data-role="listview" data-inset="true">
 	            <li>
@@ -230,10 +231,10 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="finanzas.html#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
@@ -246,7 +247,7 @@
 
 
     <div data-role="page" id="educacion">
-	   <div data-role="header">
+	   <div data-role="header" data-position="fixed">
 			<a href="#portafolio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
 			<h1>Educación</h1>
 			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
@@ -271,10 +272,10 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="finanzas.html#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
@@ -288,7 +289,7 @@
 
 
     <div data-role="page" id="vivienda">
-        <div data-role="header">
+        <div data-role="header" data-position="fixed">
 			<a href="#portafolio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
 			<h1>Vivienda</h1>
 			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
@@ -312,10 +313,10 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="finanzas.html#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
@@ -326,8 +327,10 @@
 
 
 
+
+
     <div data-role="page" id="ahorro">
-        <div data-role="header">
+        <div data-role="header" data-position="fixed">
     		<a href="#portafolio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
     		<h1>Ahorro</h1>
     		<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
@@ -349,10 +352,10 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="finanzas.html#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
@@ -363,8 +366,11 @@
 
 
 
+
+
+
     <div data-role="page" id="cesantias">
-        <div data-role="header">
+        <div data-role="header" data-position="fixed">
 			<a href="#portafolio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
 			<h1>Cesantías</h1>
 			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
@@ -386,10 +392,10 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="finanzas.html#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
@@ -400,11 +406,10 @@
 
 
 
-<!--
-    <div data-role="page" id="info_personal">
-        <div data-role="header">
-			<a href="#" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
-			<h1>Información</h1>
+    <div data-role="page" id="asesoria">
+        <div data-role="header" data-position="fixed">
+			<a href="#inicio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
+			<h1>Asesoría</h1>
 		</div>
         <div data-role="content">
             <form id="form_info_personal">
@@ -429,7 +434,8 @@
                     <input type="email" name="email" id="email" />
                 </div>
             </form>
-            <a href="javascript:solicitar_llamada()" data-role="button" data-theme="b" data-icon="plus">Solicitar asesoria</a>
+
+            <button type="button" data-role="button" data-theme="b" class="btn-solicitar">Solicitar asesoria</button>
         </div>
         <div data-role="footer">
 			<div>
@@ -439,10 +445,10 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
@@ -452,73 +458,30 @@
 
 
 
-	<div data-role="page" id="inicio_finanzas">
-		
-		<div data-role="header">
-			<a href="#inicio" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
-			<h1>Mis finanzas</h1>
-			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
+
+
+    <div data-role="page" id="asesoria-exitosa">
+        <div data-role="header" data-position="fixed">
+			<a href="#inicio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
+			<h1>Asesoría</h1>
 		</div>
 
 
-	    <div data-role="content">
-
-
-
-	      	<form id="form_inicio_finanzas">
-		        <div>
-		            <label for="desde">Desde:</label>
-		            <input type="date" name="desde" id="f_desde" onchange="RealizarLaConsulta()"/>
-		            <label for="hasta">Hasta:</label>
-		            <input type="date" name="hasta" id="f_hasta" onchange="RealizarLaConsulta()"/>
-		        </div>
-
-		        <div data-role="fieldcontain">
-		            <a href="#historicos">Ver historia</a><br>
-		        </div>
-
-		        <div data-role="fieldcontain">
-		            <label for="sActual">Ahorro en el periodo:</label><br>
-		            <input type="number" name="sActual" id="sActual"/>
-		        </div>
-
-		        <div data-role="fieldcontain">
-		            <div data-role="header">
-		                <h5 style="font-size:10px !important;">Ingresos totales: </h5>
-		                <a href="#agregar_ingreso" data-icon="gear" class="ui-btn-right">+</a>
-		            </div>
-		            <table data-role="table" id="ingresos-tabla" data-mode="reflow" class="ui-responsive table-stroke">
-		              <thead>
-		                <tr>
-		                  <th>Tipo</th>
-		                  <th>Monto</th>
-		                  <th>Fecha</th>
-		                </tr>
-		              </thead>
-		              <tbody>
-		              </tbody>
-		            </table>
-		        </div>
-		        <div data-role="fieldcontain">
-		            <div data-role="header">
-		                <h5 style="font-size:10px !important;">Gastos totales: </h5>
-		                <a href="#agregar_gasto" data-icon="gear" class="ui-btn-right">+</a>
-		            </div>
-		            <table data-role="table" id="egresos-tabla" data-mode="reflow" class="ui-responsive table-stroke">
-		              <thead>
-		                <tr>
-		                  <th>Tipo</th>
-		                  <th>Monto</th>
-		                  <th>Fecha</th>
-		                </tr>
-		              </thead>
-		              <tbody>
-		              </tbody>
-		            </table>
-		        </div>
-	      </form>
-	    </div>
-	    <div data-role="footer">
+        <div data-role="content">
+            <div class="ui-grid-solo">
+              <div class="ui-block-a logo">
+              	<img src="img/call-center2.png">
+              	<h2>¡Solicitud <br> enviada!</h2>
+              </div>
+            </div>
+            <div class="ui-grid-solo">
+              <div class="respuesta">
+              	<h1>En breve un asesor de FNA se comunicará con usted.</h1>
+              	<a href="#inicio" data-theme="b" data-role="button" >Volver al inicio</a>
+              </div>
+            </div>
+        </div>
+        <div data-role="footer">
 			<div>
 				<a href="#map-page" id="flink-puntos" data-transition="slide">
 					<span></span>
@@ -526,50 +489,43 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
 		</div>
-	</div>
+    </div>
 
 
 
 
 
-
-
-	<div data-role="page" id="agregar_gasto">
-		<div data-role="header">
-			<a href="#" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
-			<h1>Nuevo gasto</h1>
+    <div data-role="page" id="asesoria-error">
+        <div data-role="header" data-position="fixed">
+			<a href="#inicio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
+			<h1>Asesoría</h1>
 		</div>
-		<div data-role="content">
-			    <div data-role="fieldcontain">
-	            <label for="montoEgr">Valor:</label>
-	            <input type="number" name="montoEgr" id="montoEgr" />
-	        </div>
-	        <div data-role="fieldcontain">
-	            <label for="tipoEgr">Tipo:</label>
-	            <select id="tipoEgr" name="tipoEgr">
-	              <option value="Hogar">Hogar</option>
-	              <option value="Transporte">Transporte</option>
-	              <option value="Alimentación">Alimentación</option>
-	              <option value="Ropa">Ropa</option>
-	              <option value="Entretenimiento">Entretenimiento</option>
-	              <option value="fna">FNA / Crédito</option>
-	            </select> 
-	        </div>
-	        <div data-role="fieldcontain">
-	            <label for="notaEgr">Nota:</label>
-	            <input type="text" name="notaEgr" id="notaEgr" />
-	        </div>
-	        <a href="javascript:listoAgregarEgreso()" data-icon="plus">Guardar</a>
-		</div>
-		<div data-role="footer">
+
+
+        <div data-role="content">
+            <div class="ui-grid-solo">
+              <div class="ui-block-a logo">
+              	<img src="img/call-center2.png">
+              	<h2>¡Ha <br> ocurrido <br>un error!</h2>
+              </div>
+            </div>
+            <div class="ui-grid-solo">
+              <div class="respuesta">
+              	<h1>Ha surgido un error en la comunicación, por favor inténtelo más tarde.</h1>
+              	<button type="button" data-role="button" class="btn-solicitar">Volver a intentarlo</button>
+              	<a href="#inicio" data-theme="b" data-role="button" >Volver al inicio</a>
+              </div>
+            </div>
+        </div>
+        <div data-role="footer">
 			<div>
 				<a href="#map-page" id="flink-puntos" data-transition="slide">
 					<span></span>
@@ -577,130 +533,18 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
-					<span></span>
-				</a>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-
-
-	<div data-role="page" id="agregar_ingreso">
-  		<div data-role="header">
-			<a href="#" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
-			<h1>Nuevo ingreso</h1>
-		</div>
-		 <div data-role="content">
-		    <div data-role="fieldcontain">
-		        <label for="montoIng">Valor:</label>
-		        <input type="number" name="montoIng" id="montoIng" />
-		    </div>
-		    <div data-role="fieldcontain">
-		        <label for="tipoIng">Tipo:</label>
-		        <select id="tipoIng" name="tipoIng">
-		          <option value="Salario">Salario</option>
-		          <option value="Renta">Renta</option>
-		          <option value="Otros">Otros</option>
-		        </select> 
-		    </div>
-		    <div data-role="fieldcontain">
-		        <label for="notaIng">Nota:</label>
-		        <input type="text" name="notaIng" id="notaIng" />
-		    </div>
-       		<a href="javascript:ejecutarAgregarIngreso()" data-icon="plus">Guardar</a>
-		</div>
-  		<div data-role="footer">
-			<div>
-				<a href="#map-page" id="flink-puntos" data-transition="slide">
-					<span></span>
-				</a>
-				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
-					<span></span>
-				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
-					<span></span>
-				</a>
-				<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
+				<a href="finanzas.html#inicio_finanzas" class="external" id="flink-finanzas" data-transition="slide">
 					<span></span>
 				</a>
 			</div>
 		</div>
-	</div>
+    </div>
 
 
-
-
-
-
-	<div data-role="page" id="historicos">
-		<div data-role="header">
-			<a href="#" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
-			<h1>Historico</h1>
-		</div>
-	    <div data-role="content">
-	      <form id="form_historico">
-	        <div data-role="fieldcontain">
-	           <div data-role="header">
-	                <h5 style="font-size:10px !important;">Ingresos totales</h5>
-	           </div>
-	           <table data-role="table" id="ingresos_historico" data-mode="reflow" class="ui-responsive table-stroke">
-	              <thead>
-	                <tr>
-	                  <th>Monto</th>
-	                  <th>Fecha</th>
-	                </tr>
-	              </thead>
-	              <tbody>
-	              </tbody>
-	            </table>
-	        </div>
-	        <div data-role="fieldcontain">
-	             <div data-role="header">
-	                <h5 style="font-size:10px !important;">Gastos totales</h5>
-	            </div> 
-	            <table data-role="table" id="egresos_historico" data-mode="reflow" class="ui-responsive table-stroke">
-	              <thead>
-	                <tr>
-	                  <th>Monto</th>
-	                  <th>Fecha</th>
-	                </tr>
-	              </thead>
-	              <tbody>
-	              </tbody>
-	            </table>
-	        </div>
-	      </form>
-	    </div>
-	    <div data-role="footer">
-				<div>
-					<a href="#map-page" id="flink-puntos" data-transition="slide">
-						<span></span>
-					</a>
-					<a href="#portafolio" id="flink-portafolio" data-transition="slide">
-						<span></span>
-					</a>
-					<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
-						<span></span>
-					</a>
-					<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
-						<span></span>
-					</a>
-				</div>
-		</div>
-	</div>
-	
-
-
-
-
+<!--
 
     <div data-role="page" class="imagen-header" id="simulador">
 		<div data-role="header">
@@ -748,7 +592,7 @@
 				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
 					<span></span>
 				</a>
-				<a href="javascript:solicitar_asesoria()" id="flink-asesoria" data-transition="slide">
+				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
 					<span></span>
 				</a>
 				<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">

@@ -6,7 +6,7 @@ $( document ).on( "ready", function( event ){
     //
     // Esto es para modificar el comportamiento cada vez que se le hace click a un 
     // hipervinculo que lleva a otra pagina
-    $( "a" ).on( "click", function( event ){
+    $( "a" ).tap( function(event){
         event.preventDefault();
         var element = $( this )
         //
@@ -30,7 +30,6 @@ $( document ).on( "ready", function( event ){
         var page = $(this)
         Contenido.cargar(page.attr("id"))
     })
-
 
 })
 
@@ -84,6 +83,14 @@ var Contenido = {
         } else if( href == "#ahorro" ){
             Portafolio.cargar_ahorro()
 
+        } else if( href == "#asesoria" ){
+            if(localStorage.getItem("nombre")!= null){
+                 $("#nombre").val(localStorage.getItem("nombre"));
+                 $("#cedula").val(localStorage.getItem("cedula"));
+                 $("#celular").val(localStorage.getItem("telefonoCelular"));
+                 $("#direccion").val(localStorage.getItem("direccion"));
+                 $("#email").val(localStorage.getItem("email"));
+            }
         }
     }
 }
@@ -92,17 +99,6 @@ var Contenido = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-/*
 function mostrar_puntuacion(){
     var punto = window.punto_seleccionado
     $.mobile.changePage("#puntuar", {transition: 'pop', role: 'dialog'})
@@ -122,14 +118,12 @@ function mostrar_puntuacion(){
         },
         error: function (SOAPResponse) {
             console.log("hubo error")
+            console.log(SOAPResponse)
         }
     });
-
-    
-
     
 }
-*/
+
 
 /*
 $.ajax({
@@ -149,130 +143,6 @@ $.ajax({
                 alert("Error puntuando")
             }
         });*/
-
-function solicitar_asesoria(){
-    $.mobile.loading( 'show', {
-        text: "Enviando información...",
-        textVisible: true,
-        theme: "a",
-        textonly: false
-    });
-    $.ajax({
-        url: 'data/personal.json',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-
-            if(localStorage.getItem("nombre")== null){
-                $.mobile.loading( "hide" );
-                ir('info_personal')
-            }else{
-                $.mobile.loading( "hide" );
-                 $("#nombre").val(localStorage.getItem("nombre"));
-                 $("#cedula").val(localStorage.getItem("cedula"));
-                 $("#celular").val(localStorage.getItem("telefonoCelular"));
-                 $("#direccion").val(localStorage.getItem("direccion"));
-                 $("#email").val(localStorage.getItem("email"));
-                 ir('info_personal');
-            }
-        },
-        error: function (x, y, z) {
-            alert("Upps! Error")
-        }
-    });
-}
-
-
-
-
-function solicitar_llamada(){
-    $.mobile.loading( 'show', {
-        text: "Enviando información...",
-        textVisible: true,
-        theme: "a",
-        textonly: false
-    });
-
-    var alerta = validar_datos();
-
-    if(alerta == ""){
-        localStorage.setItem("nombre", $("#form_info_personal input[name='nombre']").val());
-        localStorage.setItem("telefonoCelular", $("#form_info_personal input[name='celular']").val());
-        localStorage.setItem("direccion", $("#form_info_personal input[name='direccion']").val());
-        localStorage.setItem("email", $("#form_info_personal input[name='email']").val());
-        localStorage.setItem("cedula", $("#form_info_personal input[name='cedula']").val());
-        $.mobile.loading( "hide" );
-        alert("En breve un asesor de fna se comunicará con usted.");
-        $("#nombre").val("");
-        $("#cedula").val("");
-        $("#celular").val("");
-        $("#direccion").val("");
-        $("#email").val("");
-        ir("portafolio");
-     }else{
-        $.mobile.loading( "hide" );
-         alert(alerta);
-     }
-}
-
-
-
-
-function validar_datos(){
-      var NoCumple = "valor";
-
-        if ($("#form_info_personal input[name='nombre']").val() != ""){
-            if($("#form_info_personal input[name='direccion']").val() != ""){
-                if(solo_numeros($("#form_info_personal input[name='celular']").val())&&
-                    $("#form_info_personal input[name='celular']").val()!=""){
-                    if(solo_numeros($("#form_info_personal input[name='cedula']").val()) &&
-                        $("#form_info_personal input[name='cedula']").val() != ""){
-                        if ($("#form_info_personal input[name='email']").val() != "" &&
-                            validarEmail($("#form_info_personal input[name='email']").val())){
-                                 NoCumple = "";
-                         }else{
-                            NoCumple = "Deber diligenciar el correo correctamente"
-                        }
-                    }else{
-                        NoCumple = "Deber diligenciar la cédula correctamente"
-                    }
-                }else{
-                    NoCumple = "Deber diligenciar el celular correctamente"
-                }
-            }else{
-                 NoCumple = "Deber diligenciar la dirección correctamente"
-            }
-        }else{
-            NoCumple = "Deber diligenciar el nombre correctamente"
-        }
-
-        return NoCumple;
-    }
-
-
-
-
-function solo_numeros(str){
-       var numeros = "0123456789"
-       for (var i = 0; i < str.length; i++) {
-           var c = str[i]
-           if (numeros.indexOf(c) == -1){
-               return false;
-           }
-       };
-       return true;
-    }
-
-
-
-
-function validarEmail(email) {
-        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if ( !expr.test(email) )
-            return false;
-        else
-            return true;
-    }
 
 
 function ir(idpage){

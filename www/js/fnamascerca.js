@@ -4,18 +4,12 @@ de los mapas usados en la sección FNA Mas Cerca, de la aplicación
 FNA En Tu Bolsillo
 */
 
-
-
 /*
    Éstas variables globales, son usadas por el mapa
 */
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var info_window = new google.maps.InfoWindow({content: ''});
-
-
-
-
 /*
     Éste objeto tiene todos los atributos usados para la sección mapas del FNA
 */
@@ -104,9 +98,6 @@ var MapaAtributos = {
         puntos_recaudo: true
     },
 }
-
-
-
 /*
     Éste objeto tiene todas las funciones usadas para la sección mapas del FNA
 */
@@ -276,7 +267,7 @@ var MapaObjeto = {
                             marker.info += '<h3>'+ ubicacion +'</h3> '
                             marker.info += '<div class="info1">Costo transacción: <span>'+ data.d[i].costodetransaccion +'</span></div> '
                             marker.info += '<div class="info1">Horario de atención: <span>'+ horario +'</span></div> '
-                            marker.info += '<div class="btns"><a class="boton_js" href="javascript: mostrar_ruta(\''+data.d[i].latitud+'\', \''+data.d[i].longitud+'\')" data-inline="true" data-role="button" data-theme="b">Como llegar</a> '
+                            marker.info += '<div class="btns"><button class="boton_js" onclick="MapaObjeto.mostrar_ruta(\''+data.d[i].latitud+'\', \''+data.d[i].longitud+'\')" data-inline="true" type="button" data-theme="b">Como llegar</button> '
                             marker.info += '<a class="boton_js" href="javascript: mostrar_puntuacion()" data-inline="true" data-role="button" data-theme="b">Puntuar</a></div> </div> </div>'
 
                             marker.punto = data.d[i]
@@ -333,10 +324,6 @@ var MapaObjeto = {
         google.maps.event.trigger( MapaAtributos.mapa, 'resize');
     },
 }
-
-
-
-
 /*
     Obtiene mi posición una vez el google maps halla cargado la libreria
 */

@@ -1,3 +1,59 @@
+$(document).on('ready', function(){
+    $(".btn-historico").tap(function(event){
+        event.preventDefault()
+        historia()
+    })
+    
+    $(".btn-agregar-ingreso").tap(function(event){
+        event.preventDefault()
+        formu_ing()
+    })
+
+
+    $(".btn-agregar-egreso").tap(function(event){
+        event.preventDefault()
+        formu_Egre()
+    })
+
+    $('inicio_finanzas').ready(function() {
+        var d=new Date();
+        var dat=d.getDate();
+        var mon=d.getMonth();
+        var year=d.getFullYear();
+        
+        var todayDateD = year+"-"+setDateZero(mon)+"-"+setDateZero(dat);
+        $('#f_desde').val(todayDateD);
+
+        var monH=d.getMonth()+1;
+        var todayDateH = year +"-"+ setDateZero(monH) +"-"+ setDateZero(dat);
+        $('#f_hasta').val(todayDateH);
+        
+        //$( "#ingresos-tabla" ).table( "refresh" );
+        configurar_db()
+        RealizarLaConsulta();
+    });
+
+})
+
+
+
+
+    function historia(tx) {
+        window.location.href = "finanzas.html#historicos";
+        ConsultarHistoriaIngre();
+        ConsultarHistoriaEgr();
+    }
+    
+    function RealizarLaConsulta(tx) {
+       RealizarConsultaIngre();
+       RealizarConsultaEgre();
+       RealizarSumaIngresos();
+    }
+    
+    function volver_inicio() {
+       window.location.href = "index.html";
+    }
+
 /////////////////////////FINANZAS///////////////////////////////////////
 //     device APIs are available
 //
@@ -134,7 +190,7 @@
         window.ingresos = results.rows.item(0).totalIng;
     //    console.log("suma = "+ window.ingresos);
         SumarEgresos(tx);
-        // $("#sActual").val(window.ingresos);
+        // $("#sActual").html(window.ingresos);
     }
     
     function setDateZero(date){
@@ -215,7 +271,7 @@
         var egresos = results.rows.item(0).totalEg;
         var diferencia = window.ingresos - egresos;
        // console.log("Dif: "+ diferencia);
-        $("#sActual").val(diferencia);
+        $("#sActual").html(diferencia);
     }
 
     function ir(idpage){

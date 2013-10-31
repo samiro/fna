@@ -338,9 +338,9 @@ body .info-window div.btns .boton{
     margin: 0 10px;
 }
 .logo{
-    max-height: 150px;
     overflow: hidden;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .logo img{
@@ -396,18 +396,17 @@ body .info-window div.btns .boton{
     left: 0;
     top: 0;
 }
-.imagen-head p{
+.imagen-head .titulo{
     position: absolute;
     color: #fff;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 22px;
+    line-height: 28px;
     top: 10px;
     left: 40px;
     right: 40px;
     text-align: center;
     font-weight: normal;
     text-shadow: none;
-
 }
 
 body .ui-block-a strong{
@@ -548,4 +547,150 @@ body .ui-block-a .servicios-tit,
     margin: 0;
     color: #1A3C8F;
     font-weight: bold;
+}
+
+
+#inicio_finanzas .imagen-head{
+    max-height: auto;
+    height: 200px;
+}
+
+#inicio_finanzas .imagen-head .balance{
+    position: absolute;
+    color: #fff;
+    font-size: 18px;
+    line-height: 22px;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    text-align: center;
+    font-style: italic;
+}
+
+#inicio_finanzas .imagen-head .balance label{
+    display: block;
+    text-shadow: none;
+}
+
+#inicio_finanzas .imagen-head .balance p{
+    color: #000;
+    margin: 0;
+    padding: 5px 0;
+    font-size: 45px;
+    line-height: 40px;
+}
+
+#inicio_finanzas .ui-mini .ui-btn-inner{
+    padding: .2em 11px .2em;
+}
+
+#inicio_finanzas .subtitulo{
+    font-size: 19px;
+    line-height: 19px;
+    color: #888;
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+}
+#inicio_finanzas .entradas-fechas {
+    padding: 0 10px;
+}
+#inicio_finanzas .entradas-fechas table{
+    width: 100%;
+}
+#inicio_finanzas .entradas-fechas table .center{
+    text-align: center;
+}
+#inicio_finanzas .entradas-fechas label{
+    font-size: 16px;
+    line-height: 16px;
+    color: #888;
+}
+#inicio_finanzas .entradas-fechas div.ui-input-text{
+    padding: 5px 0;
+    margin: 0;
+    margin-right: 10px;
+    display: inline-block;
+}
+#inicio_finanzas .entradas-fechas div.ui-input-text input{
+    width: 100%;
+}
+
+.titulo-bg{
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-width: 1px 0;
+    margin-top: 20px;
+}
+.titulo-bg label{
+    font-style: italic;
+    font-size: 19px;
+    line-height: 19px;
+    font-weight: bold;
+    color: #888;
+}
+
+.titulo-bg .ui-btn{
+    float: right;
+    vertical-align: top;
+    margin: 0;
+    margin-top: -3px;
+}
+#inicio_finanzas .ui-content{
+    padding-bottom: 70px;
+}
+
+#asesoria-exitosa .logo h2,
+#asesoria-error .logo h2{
+    font-weight: normal;
+    font-size: 32px;
+    font-style: italic;
+    line-height: 40px;
+    position: absolute;
+    left: 15%;
+    top: 50%;
+    right: 50%;
+    height: 80px;
+    margin: 0;
+    margin-top: -40px;
+    color: #C1D82F;
+    text-align: left;
+}
+
+#asesoria-error .logo h2{
+    color: #FE2E2E;
+    left: 12%;
+    height: 120px;
+    margin-top: -60px;
+}
+
+
+#asesoria-exitosa .logo,
+#asesoria-error .logo{
+    height: 150px;
+    background: #fff;
+    text-align: right;
+    line-height: 150px;
+}
+#asesoria-exitosa .logo img,
+#asesoria-error .logo img{
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+}
+#asesoria-exitosa .respuesta,
+#asesoria-error .respuesta{
+    padding: 0 25px;
+}
+#asesoria-exitosa .respuesta h1,
+#asesoria-error .respuesta h1{
+    text-align: center;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 38px;
+    font-size: 32px;
+    margin: 40px 0;
 }
