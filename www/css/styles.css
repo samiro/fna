@@ -616,10 +616,36 @@ body .ui-block-a .servicios-tit,
     width: 100%;
 }
 
+
+#inicio_finanzas .entrada-finanzas{
+    padding: 10px;
+    border-bottom: 1px solid #B1D4F5;
+    background: #DEEEFC;
+}
+#inicio_finanzas #entradas-ingresos .entrada-finanzas{
+    border-right: 1px solid #bbb;
+}
+#inicio_finanzas #entradas-egresos .entrada-finanzas{
+    border-left: 1px solid #bbb;
+}
+#inicio_finanzas .entrada-finanzas .fecha{
+    display: block;
+    font-size: 14px;
+    line-height: 14px;
+}
+#inicio_finanzas .entrada-finanzas .valor{
+    display: block;
+    font-size: 25px;
+    line-height: 30px;
+    font-weight: bold;
+    font-style: italic;
+    color: #1A3C8F;
+}
+
 .titulo-bg{
     background: #fff;
     padding: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #bbb;
     border-width: 1px 0;
     margin-top: 20px;
 }

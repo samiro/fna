@@ -103,8 +103,8 @@ function mostrar_puntuacion(){
     var punto = window.punto_seleccionado
     $.mobile.changePage("#puntuar", {transition: 'pop', role: 'dialog'})
     $.soap({
-        url: 'https://www.fna.gov.co:8445/PuntuasdasdacionHackatonServiceWeb/sca/',
-        method: 'WSPuntuacionServiceExport',
+        url: 'https://www.fna.gov.co:8445/PuntuacionHackatonServiceWeb/sca/WSPuntuacionServiceExport/WEB-INF/wsdl/WSPuntuacionServiceExport_PuntuacionServiceHttp_Service.wsdl',
+        method: 'procesarPuntuacion',
         params: {
             IdPuntoAtencion: punto.no,
             ClaseCalificacion: 'Otro',

@@ -91,7 +91,6 @@ $(document).on('ready', function(){
 	function GuardarNuevoIngreso() {
         var db = window.openDatabase("bd_finanzas", "1.0", "Mis finanzas", 200000);
         db.transaction(AgregarIngreso, errorOperacion, function(){
-			
 			if(ing_vacios=="S"){
 				alert("Debe diligenciar todos los datos. El valor debe ser numérico y sin puntos.");
 			}else{		
@@ -166,10 +165,11 @@ $(document).on('ready', function(){
     function ResultadosIngresos(tx, results) {
        var len = results.rows.length;
 
-        $("#ingresos-tabla tbody").html("");
-        
+        //$("#ingresos-tabla tbody").html("");
+        $("#entradas-ingresos").html("")
         for (var i=0; i<len; i++){
-          $("#ingresos-tabla tbody").append("<tr><td>"+results.rows.item(i).tipo_ing+"</td><td>$"+results.rows.item(i).valor_ing+"</td><td>"+results.rows.item(i).fecha_ing+"</td></tr>");
+            $("#entradas-ingresos").append('<div class="entrada-finanzas"><label class="fecha">'+results.rows.item(i).fecha_ing+'</label><label class="valor">$'+results.rows.item(i).valor_ing+'</label></div>')
+            //$("#ingresos-tabla tbody").append("<tr><td>"+results.rows.item(i).tipo_ing+"</td><td>$"+results.rows.item(i).valor_ing+"</td><td>"+results.rows.item(i).fecha_ing+"</td></tr>");
         }
         $.mobile.loading( "hide" );
         RealizarSumaIngresos();
@@ -250,10 +250,12 @@ $(document).on('ready', function(){
         var len = results.rows.length;
         // console.log("Egresos table: " + len + " rows found.");
 
-        $("#egresos-tabla tbody").html("");
+        $("#entradas-egresos").html("");
+        //$("#egresos-tabla tbody").html("");
         
         for (var i=0; i<len; i++){
-          $("#egresos-tabla tbody").append("<tr><td>"+results.rows.item(i).tipo_eg+"</td><td>$"+results.rows.item(i).valor_eg+"</td><td>"+results.rows.item(i).fecha_eg+"</td></tr>");
+            $("#entradas-egresos").append('<div class="entrada-finanzas"><label class="fecha">'+results.rows.item(i).fecha_eg+'</label><label class="valor">$'+results.rows.item(i).valor_eg+'</label></div>')
+          //$("#egresos-tabla tbody").append("<tr><td>"+results.rows.item(i).tipo_eg+"</td><td>$"+results.rows.item(i).valor_eg+"</td><td>"+results.rows.item(i).fecha_eg+"</td></tr>");
          //   console.log("Row = " + i + " fecha_ing = " + results.rows.item(i).fecha_eg + " Valor_ing =  " + results.rows.item(i).valor_eg + " tipo_ing =  " + results.rows.item(i).tipo_eg);
         }
         $.mobile.loading( "hide" );
@@ -321,7 +323,8 @@ $(document).on('ready', function(){
         for (var i=0; i<len; i++){
           $("#egresos_historico tbody").append("<tr><td>$"+results.rows.item(i).valor_eg+"</td><td>"+results.rows.item(i).fecha_eg+"</td><td>"+results.rows.item(i).tipo_eg+"</td><td>"+results.rows.item(i).nota_eg+"</td></tr>");
         }
-       $.mobile.loading( "hide" );
+        
+        $.mobile.loading( "hide" );
     }
 	
     
