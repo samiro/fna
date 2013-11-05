@@ -26,11 +26,10 @@ function solicitar_llamada(){
 		var celular = $("#form_info_personal input[name='celular']").val();
 		var direccion = $("#form_info_personal input[name='direccion']").val();
 		var correo = $("#form_info_personal input[name='email']").val();
-		var cc= $("#form_info_personal input[name='cedula']").val();
+		//var cc= $("#form_info_personal input[name='cedula']").val();
 		$.mobile.loading( "hide" );		
 
         //Llamado al web service		
-			
 		var data =	'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:isol="http://SolicitudAtencionClienteModule/ISolicitarAtencionWebService">'+
 					'<soapenv:Header/>'+
 					'<soapenv:Body>'+
@@ -58,9 +57,8 @@ function solicitar_llamada(){
         xmlhttp.open('POST', 'https://www.fna.gov.co:8445/SolicitudAtencionClienteModuleWeb/sca/SolicitarAtencionWebService', true);
         xmlhttp.setRequestHeader('Content-Type', 'text/xml');
         xmlhttp.onreadystatechange = function () {
-            $.mobile.loading( "hide" );
-			
-			
+         $.mobile.loading( "hide" );
+					
             if (xmlhttp.readyState == 4) {
 			
                 try {
@@ -72,7 +70,7 @@ function solicitar_llamada(){
 					alert("ho");
                     var error_msj = xmlDoc.getElementsByTagName("mensaje")[0].childNodes[0].nodeValue;
 				alert("hol");
-                    if(error != "0")
+                  //  if(error != "0")
 				alert("hola");
                         alert(error_msj)
 				alert("holaa");
@@ -88,7 +86,7 @@ function solicitar_llamada(){
         ir("asesoria-exitosa");
 
         $("#nombre").val("");
-        $("#cedula").val("");
+      //  $("#cedula").val("");
         $("#celular").val("");
         $("#direccion").val("");
         $("#email").val("");
@@ -102,9 +100,6 @@ function solicitar_llamada(){
      }
 }
 
-
-
-
 function validar_datos(){
       var NoCumple = "valor";
 
@@ -112,17 +107,17 @@ function validar_datos(){
             if($("#form_info_personal input[name='direccion']").val() != ""){
                 if(solo_numeros($("#form_info_personal input[name='celular']").val())&&
                     $("#form_info_personal input[name='celular']").val()!=""){
-                    if(solo_numeros($("#form_info_personal input[name='cedula']").val()) &&
-                        $("#form_info_personal input[name='cedula']").val() != ""){
+                    //if(solo_numeros($("#form_info_personal input[name='cedula']").val()) &&
+                       // $("#form_info_personal input[name='cedula']").val() != ""){
                         if ($("#form_info_personal input[name='email']").val() != "" &&
                             validarEmail($("#form_info_personal input[name='email']").val())){
                                  NoCumple = "";
                          }else{
                             NoCumple = "Deber diligenciar el correo correctamente"
                         }
-                    }else{
-                        NoCumple = "Deber diligenciar la cédula correctamente"
-                    }
+                    // }else{
+                    //    NoCumple = "Deber diligenciar la cédula correctamente"
+                    //}
                 }else{
                     NoCumple = "Deber diligenciar el celular correctamente"
                 }
@@ -134,10 +129,7 @@ function validar_datos(){
         }
 
         return NoCumple;
-    }
-
-
-
+}
 
 function solo_numeros(str){
        var numeros = "0123456789"
@@ -148,10 +140,7 @@ function solo_numeros(str){
            }
        };
        return true;
-    }
-
-
-
+}
 
 function validarEmail(email) {
         expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
