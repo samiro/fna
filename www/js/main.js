@@ -30,7 +30,7 @@ $( document ).on( "ready", function( event ){
         var page = $(this)
         Contenido.cargar(page.attr("id"))
     })
-
+    
 })
 
 
@@ -99,30 +99,7 @@ var Contenido = {
 
 
 
-function mostrar_puntuacion(){
-    var punto = window.punto_seleccionado
-    $.mobile.changePage("#puntuar", {transition: 'pop', role: 'dialog'})
-    $.soap({
-        url: 'https://www.fna.gov.co:8445/PuntuacionHackatonServiceWeb/sca/WSPuntuacionServiceExport/WEB-INF/wsdl/WSPuntuacionServiceExport_PuntuacionServiceHttp_Service.wsdl',
-        method: 'procesarPuntuacion',
-        params: {
-            IdPuntoAtencion: punto.no,
-            ClaseCalificacion: 'Otro',
-            Calificacion: 3,
-            Observaciones: 'Descripcion opcional',
-            Celular: '3103184077'
-        },
 
-        success: function (soapResponse) {
-            console.log(soapResponse)
-        },
-        error: function (SOAPResponse) {
-            console.log("hubo error")
-            console.log(SOAPResponse)
-        }
-    });
-    
-}
 
 
 /*

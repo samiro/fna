@@ -24,14 +24,14 @@ function solicitar_llamada(){
 
         //alert("En breve un asesor de fna se comunicará con usted.");
         
-
-        //$("#nombre").val("");
-        //$("#cedula").val("");
-        //$("#celular").val("");
-        //$("#direccion").val("");
-        //$("#email").val("");
-
         ir("asesoria-exitosa");
+
+        $("#nombre").val("");
+        $("#cedula").val("");
+        $("#celular").val("");
+        $("#direccion").val("");
+        $("#email").val("");
+
      }else{
      	setTimeout(function() {
      		$.mobile.loading( "hide" );

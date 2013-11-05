@@ -24,6 +24,9 @@ var MapaAtributos = {
     // Latitud y longitud de mi posición
     mi_posicion: null,
     //
+    //Punto de atencion que tiene seleccionado
+    punto_seleccionado: null,
+    //
     //Configuración de estilo para el mapa
     estilo_mapa: [
           {
@@ -189,6 +192,9 @@ var MapaObjeto = {
     //
     // Funcion que filtra el objeto según los criterios configurador MapaAtributos
     pasa_filtros: function(obj){
+        //console.log(obj)
+        return true;
+        /*
         var municipio = obj.municipio
         var sin_costo = obj.costodetransaccion.toUpperCase() == "GRATUITO"? true : false
         var hor_extendido = obj.horarioextendido.toUpperCase() == "NO HAY SERVICIO"? true : false
@@ -202,13 +208,14 @@ var MapaObjeto = {
         if(es_atencion == false && MapaAtributos.filtros.puntos_recaudo) return true;
 
         return false;
+        */
     },
     //
     // Cargar los puntos que retorna el setdatos
     cargar_todos_puntos: function(por_ciudad, callback){
         var url = MapaAtributos.general.puntos_json
 
-        if(MapaAtributos.ciudad != '' && por_ciudad){
+        if(MapaAtributos.ciudad != ''){
             url += "&$filter=municipio='"+MapaAtributos.ciudad+"'"
         }
 
@@ -220,12 +227,11 @@ var MapaObjeto = {
             success: function (data) {
                 var atencion = []
                 var recaudo = []
-                var ciudad = "MANIZALES"
+                //var ciudad = "MANIZALES"
                 var es_atencion = "Punto de atención FNA"
 
                 for (var i = 0; i < data.d.length; i++) {
-                    if ((data.d[i].municipio).toUpperCase() == ciudad.toUpperCase() || ciudad == ciudad){
-                        //if (that.pasa_filtros(data.d[i])){
+                    if(MapaObjeto.pasa_filtros(data.d[i])){
                             var point = new google.maps.LatLng(data.d[i].latitud, data.d[i].longitud)
                             var tipo_entidad = (data.d[i].tipodeentidad).toUpperCase()
                             var ubicacion = data.d[i].direccion + " - " + data.d[i].municipio + ", " + data.d[i].departamento
@@ -268,7 +274,7 @@ var MapaObjeto = {
                             marker.info += '<div class="info1">Costo transacción: <span>'+ data.d[i].costodetransaccion +'</span></div> '
                             marker.info += '<div class="info1">Horario de atención: <span>'+ horario +'</span></div> '
                             marker.info += '<div class="btns"><button class="boton_js" onclick="MapaObjeto.mostrar_ruta(\''+data.d[i].latitud+'\', \''+data.d[i].longitud+'\')" data-inline="true" type="button" data-theme="b">Como llegar</button> '
-                            marker.info += '<a class="boton_js" href="javascript: mostrar_puntuacion()" data-inline="true" data-role="button" data-theme="b">Puntuar</a></div> </div> </div>'
+                            marker.info += '<button class="boton_js" onclick="MapaObjeto.mostrar_puntuacion()" data-inline="true" data-theme="b">Puntuar</button></div> </div> </div>'
 
                             marker.punto = data.d[i]
 
@@ -277,7 +283,7 @@ var MapaObjeto = {
                                 info_window.maxWidth = 300;
                                 info_window.open(this.getMap(), this);
                                 MapaAtributos.mapa.panTo(this.getPosition());
-                                window.punto_seleccionado = this.punto
+                                MapaAtributos.punto_seleccionado = this.punto
                                 $(".boton_js").buttonMarkup( "refresh" );
                             });
                     }
@@ -296,7 +302,7 @@ var MapaObjeto = {
     //
     // Carga la ruta desde mi punto de ubicacion hasta el punto fna o recaudo señalado
     mostrar_ruta: function(lat, lon){
-        if(MapaAtributos.mi_posicion != null){
+        if( MapaAtributos.mi_posicion != null ){
             var position = MapaAtributos.mi_posicion
             var start = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
             var end = new google.maps.LatLng(lat, lon)
@@ -320,8 +326,77 @@ var MapaObjeto = {
     //
     // dispara el evento de redimensionar la pantalla
     resize_trigger: function(){
-    	
         google.maps.event.trigger( MapaAtributos.mapa, 'resize');
+    },
+    //
+    //Mostrar la ventana de la puntuación
+    mostrar_puntuacion: function(){
+        $("#input-puntos").val(0)
+        $("#input-tipo").val("")
+        $("#input-opinion").val("")
+        $.mobile.changePage("#puntuar", {transition: 'pop', role: 'dialog'})
+    },
+    //
+    //Envia la puntuacion al webservice
+    enviar_puntuacion: function(){
+        var puntos = $("#input-puntos").val()
+        var tipo = $("#input-tipo").val()
+        var opinion = $("#input-opinion").val()
+
+        if(puntos == "" ){
+            alert("Debes dar una calificación")
+            return false;
+        }
+
+        if(tipo == "" ){
+            alert("Debes seleccionar lo que calificas")
+            return false;
+        }
+
+        
+
+        $.mobile.loading('show', {
+            text: "Enviando puntuación",
+            textVisible: true,
+            textonly: false
+        });
+
+        var data =  '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pun="http://PuntuacionHackatonService/PuntuacionService">' +
+                        '<soapenv:Header/>' +
+                        '<soapenv:Body>' +
+                            '<pun:procesarPuntuacion>' +
+                                '<procesarPuntuacion>' +
+                                    '<IdPuntoAtencion>' + MapaAtributos.punto_seleccionado.no + '</IdPuntoAtencion>' +
+                                    '<ClaseCalificacion>' + tipo + '</ClaseCalificacion>' +
+                                    '<Calificacion>' + puntos + '</Calificacion>' +
+                                    '<Observaciones>' + opinion + '</Observaciones>' +
+                                    '<Celular>0000000000</Celular>' +
+                                '</procesarPuntuacion>' +
+                            '</pun:procesarPuntuacion>' +
+                        '</soapenv:Body>' +
+                    '</soapenv:Envelope>';
+        var xmlhttp = new window.XMLHttpRequest();
+        xmlhttp.open('POST', 'https://www.fna.gov.co:8445/PuntuacionHackatonServiceWeb/sca/WSPuntuacionServiceExport', true);
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+        xmlhttp.onreadystatechange = function () {
+            $.mobile.loading( "hide" );
+            if (xmlhttp.readyState == 4) {
+                try {
+                    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                    console.log(xmlDoc)
+                    var error = xmlDoc.getElementsByTagName("CodigoError")[0].childNodes[0].nodeValue
+                    var error_msj = xmlDoc.getElementsByTagName("MensajeError")[0].childNodes[0].nodeValue
+                    if(error != "0")
+                        alert(error_msj)
+                    else
+                        $.mobile.changePage("#map-page")
+                }catch (e) {
+                    alert("Lo sentimos. Intentalo de nuevo.")
+                }
+            }
+        }
+        xmlhttp.send(data);
     },
 }
 /*
@@ -331,7 +406,46 @@ google.maps.event.addDomListener(window, 'load', function(){
     document.addEventListener("deviceready", function(){
         //alert("¡Dispositivo listo!")
         MapaObjeto.obtener_mi_posicion(function(){
-            alert("¡Posición obtenida!")
+            //alert("¡Posición obtenida!")
         })
     }, false);
 });
+
+
+$(document).on("ready", function(){
+    $(".btn-enviar-puntuacion").tap(function(event){
+        event.preventDefault()
+        MapaObjeto.enviar_puntuacion()
+    })
+})
+
+
+/*
+
+$.soap({
+            url: 'https://www.fna.gov.co:8445/PuntuacionHackatonServiceWeb/sca/WSPuntuacionServiceExport',
+            params: {
+                IdPuntoAtencion: MapaAtributos.punto_seleccionado.no,
+                ClaseCalificacion: tipo,
+                Calificacion: puntos,
+                Observaciones: opinion,
+                Celular: '3103184077'
+            },
+            dataType: "xml",
+            complete: function (soapResponse) {
+                $.mobile.loading( "hide" );
+                console.log(soapResponse)
+            },
+            success: function (soapResponse) {
+                $.mobile.loading( "hide" );
+                console.log(soapResponse)
+            },
+            error: function (SOAPResponse) {
+                $.mobile.loading( "hide" );
+                alert("Error")
+                console.log(SOAPResponse)
+            }
+        })
+
+
+*/

@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="css/font.css">
 
 
-	<script type="text/javascript" src="cordova.js"></script>
+	<!--<script type="text/javascript" src="cordova.js"></script>-->
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.mobile-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.soap.js"></script>
@@ -129,16 +129,17 @@
 			<input type="range" id="input-puntos" value="1" min="1" max="5" data-highlight="true"/>
 			<br>
 			<label for="input-tipo">Lo que calificas:</label>
-			<select id="input-tipo" id="select-choice-0">
-			  <option value="standard">Servicio</option>
-			  <option value="rush">Instalaciones</option>
-			  <option value="express">Otro</option>
+			<select id="input-tipo">
+			  <option value="">-- Seleccione uno --</option>
+			  <option value="servi">Servicio</option>
+			  <option value="insta">Instalaciones</option>
+			  <option value="otro">Otro</option>
 			</select>
 			<br>
 			<textarea id="input-opinion" rows="3" maxlength="140" placeholder="Escribe tu opinión"></textarea>
 			<br>
 			<a href="#map-page" data-inline="true" data-role="button">Cancelar</a>
-			<a href="#" data-inline="true" data-role="button" data-theme="b">Puntuar</a>
+			<button class="btn-enviar-puntuacion" data-mini="true" data-theme="b" data-inline="true">Puntuar</button>
 		</div>
 	</div>
 

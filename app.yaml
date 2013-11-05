@@ -7,3 +7,5 @@ threadsafe: yes
 handlers:
 - url: /
   static_dir: www
+  http_headers:
+    Access-Control-Allow-Origin: "*"
