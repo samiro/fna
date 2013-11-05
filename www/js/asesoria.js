@@ -15,14 +15,75 @@ function solicitar_llamada(){
     var alerta = validar_datos();
 
     if(alerta == ""){
-        localStorage.setItem("nombre", $("#form_info_personal input[name='nombre']").val());
-        localStorage.setItem("telefonoCelular", $("#form_info_personal input[name='celular']").val());
-        localStorage.setItem("direccion", $("#form_info_personal input[name='direccion']").val());
-        localStorage.setItem("email", $("#form_info_personal input[name='email']").val());
-        localStorage.setItem("cedula", $("#form_info_personal input[name='cedula']").val());
-        $.mobile.loading( "hide" );
+       // localStorage.setItem("nombre", $("#form_info_personal input[name='nombre']").val());
+       // localStorage.setItem("telefonoCelular", $("#form_info_personal input[name='celular']").val());
+       // localStorage.setItem("direccion", $("#form_info_personal input[name='direccion']").val());
+       // localStorage.setItem("email", $("#form_info_personal input[name='email']").val());
+       // localStorage.setItem("cedula", $("#form_info_personal input[name='cedula']").val());
+       // $.mobile.loading( "hide" );
+			
+		var nombre = $("#form_info_personal input[name='nombre']").val();
+		var celular = $("#form_info_personal input[name='celular']").val();
+		var direccion = $("#form_info_personal input[name='direccion']").val();
+		var correo = $("#form_info_personal input[name='email']").val();
+		var cc= $("#form_info_personal input[name='cedula']").val();
+		$.mobile.loading( "hide" );		
 
-        //alert("En breve un asesor de fna se comunicará con usted.");
+        //Llamado al web service		
+			
+		var data =	'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:isol="http://SolicitudAtencionClienteModule/ISolicitarAtencionWebService">'+
+					'<soapenv:Header/>'+
+					'<soapenv:Body>'+
+						'<isol:solicitarAtencionCliente>'+
+							'<datosSolicitudCliente>'+
+								'<externalUserId>?</externalUserId>'+
+								'<!--Optional:-->'+
+								'<externalApplicationId>?</externalApplicationId>'+
+								'<!--Optional:-->'+
+								'<afiliado>'+
+									'<nombre>'+nombre+'</nombre>'+
+									'<telefonoCelular>'+celular+'</telefonoCelular>'+
+									'<direccion>'+direccion+'</direccion>'+
+									'<!--Optional:-->'+
+									'<correoElectronico>'+correo+'</correoElectronico>'+
+								'</afiliado>'+
+							'</datosSolicitudCliente>'+
+						'</isol:solicitarAtencionCliente>'+
+					'</soapenv:Body>'+
+					'</soapenv:Envelope>';					
+					
+		
+					console.log(data)
+        var xmlhttp = new window.XMLHttpRequest();
+        xmlhttp.open('POST', 'https://www.fna.gov.co:8445/SolicitudAtencionClienteModuleWeb/sca/SolicitarAtencionWebService', true);
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+        xmlhttp.onreadystatechange = function () {
+            $.mobile.loading( "hide" );
+			
+			
+            if (xmlhttp.readyState == 4) {
+			
+                try {
+				    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                    console.log(xmlDoc)
+					alert("h");
+				    var error = xmlDoc.getElementsByTagName("codigo")[0].childNodes[0].nodeValue;
+					alert("ho");
+                    var error_msj = xmlDoc.getElementsByTagName("mensaje")[0].childNodes[0].nodeValue;
+				alert("hol");
+                    if(error != "0")
+				alert("hola");
+                        alert(error_msj)
+				alert("holaa");
+                    //else
+                      //  $.mobile.changePage("#map-page")
+                }catch (e) {
+                    alert("Lo sentimos. Intentalo de nuevo.")
+                }
+            }
+        }
+        xmlhttp.send(data);	
         
         ir("asesoria-exitosa");
 
@@ -35,6 +96,7 @@ function solicitar_llamada(){
      }else{
      	setTimeout(function() {
      		$.mobile.loading( "hide" );
+			alert(alerta);
          	ir("asesoria-error");
      	}, 500);
      }
@@ -97,4 +159,7 @@ function validarEmail(email) {
             return false;
         else
             return true;
-    }
+}
+
+ 
+    
