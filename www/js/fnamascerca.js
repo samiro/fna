@@ -8,6 +8,7 @@ FNA En Tu Bolsillo
    Éstas variables globales, son usadas por el mapa
 */
 var directionsDisplay;
+var geocoder;
 var directionsService = new google.maps.DirectionsService();
 var info_window = new google.maps.InfoWindow({content: ''});
 /*
@@ -90,13 +91,14 @@ var MapaAtributos = {
             pin_fnasincosto: 'img/pines/fna_sincosto.png',
             pin_recaudoconcosto: 'img/pines/recaudo_concosto.png',
             pin_recaudosincosto: 'img/pines/recaudo_sincosto.png',
-            txt_punto_atencion: "Punto de atención FNA"
+            txt_punto_atencion: "Punto de atención FNA - Punto Empresaria FNA"
     },
     //
     //Configuración del filtro
     filtros: {
         horario_extendido: true,
         sin_costo: true,
+        con_costo: true,
         puntos_atencion: true,
         puntos_recaudo: true
     },
@@ -108,10 +110,12 @@ var MapaObjeto = {
 	//
     // inicializador
     inicializar: function(callback) {
-        google.maps.visualRefresh = true;
-        var map = new google.maps.Map(document.getElementById('map-canvas'), MapaAtributos.opciones_mapa);
+        var map           = new google.maps.Map(document.getElementById('map-canvas'), MapaAtributos.opciones_mapa);
+        geocoder          = new google.maps.Geocoder();
         directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers : true});
+        
         directionsDisplay.setMap(map);
+        google.maps.visualRefresh = true;
         MapaAtributos.mapa = map
 
         if(callback!=undefined)
@@ -122,8 +126,29 @@ var MapaObjeto = {
     obtener_mi_posicion: function(callback){
         navigator.geolocation.getCurrentPosition( function(position){
             MapaAtributos.mi_posicion = position
-            if(callback!=undefined)
-                callback()
+            
+            var lat = position.coords.latitude
+            var lon = position.coords.longitude
+            var point = new google.maps.LatLng(lat, lon)
+            geocoder.geocode({'latLng': point}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    try{
+                        var ciudad = results[1].address_components[0].long_name
+                        MapaAtributos.ciudad = ciudad.toUpperCase()
+
+                    }catch(e){
+                        alert("No pudimos localizar tu ciudad. Elije una manualmente.");
+                    }
+
+                    if(callback!=undefined)
+                        callback()
+
+                } else {
+                    if(callback!=undefined)
+                        callback()
+                    alert("No pudimos localizar tu ciudad. Elije una manualmente");
+                }
+            });
         }, 
         function( error ){
             alert('Error obteniendo mi posicion! ' + error);
@@ -145,6 +170,7 @@ var MapaObjeto = {
         if(MapaAtributos.mapa != null){
 
             if(MapaAtributos.mi_posicion != null){
+                //alert("ya estaba ubicado")
                 var position = MapaAtributos.mi_posicion
                 var lat = position.coords.latitude
                 var lon = position.coords.longitude
@@ -154,12 +180,17 @@ var MapaObjeto = {
                     title:"Yo!",
                     icon: MapaAtributos.general.pin_persona
                 });
-                        
+
                 marker.setMap(MapaAtributos.mapa)
                 MapaAtributos.mapa.setCenter(point)
                 if(callback != undefined)
                     callback()
             }else{
+                //alert("Voy a ubicarme")
+                MapaObjeto.obtener_mi_posicion(function(){
+                    MapaObjeto.ubicarme(callback)
+                })
+                /*
                 navigator.geolocation.getCurrentPosition(
                     function(position){
                         MapaAtributos.mi_posicion = position
@@ -184,6 +215,7 @@ var MapaObjeto = {
                             callback()
                     }
                 );
+                */ 
             }
         }else{
             alert("El mapa no se cargó no se puede ubicar mi posición")
@@ -192,28 +224,44 @@ var MapaObjeto = {
     //
     // Funcion que filtra el objeto según los criterios configurador MapaAtributos
     pasa_filtros: function(obj){
-        //console.log(obj)
-        return true;
-        /*
         var municipio = obj.municipio
         var sin_costo = obj.costodetransaccion.toUpperCase() == "GRATUITO"? true : false
+        var con_costo = !sin_costo
         var hor_extendido = obj.horarioextendido.toUpperCase() == "NO HAY SERVICIO"? true : false
-        var es_atencion = (obj.tipodeentidad).toUpperCase() == MapaAtributos.general.txt_punto_atencion.toUpperCase()? true : false
+        var es_atencion =  MapaAtributos.general.txt_punto_atencion.toUpperCase().indexOf(obj.tipodeentidad.toUpperCase()) !== -1? true : false
+        var es_recaudo = !es_atencion
 
-        if(MapaAtributos.filtros.horario_extendido != hor_extendido || MapaAtributos.filtros.sin_costo != sin_costo){
-            return false;
-        }
+        // Primer filtro de si es punto de atencion o recaudo
+        if(MapaAtributos.filtros.puntos_atencion == false && es_atencion) return false;
+        if(MapaAtributos.filtros.puntos_recaudo == false && es_recaudo) return false;
 
-        if(es_atencion && MapaAtributos.filtros.puntos_atencion) return true;
-        if(es_atencion == false && MapaAtributos.filtros.puntos_recaudo) return true;
+        // Segundo fitro de si es con costo
+        if(MapaAtributos.filtros.sin_costo == false && sin_costo) return false;
+        if(MapaAtributos.filtros.con_costo == false && con_costo) return false;
 
-        return false;
-        */
+        // Tercer filtro de si es con horario extendido
+        if(MapaAtributos.filtros.horario_extendido == false && hor_extendido) return false;
+
+        // Pasó los filtros
+        return true;
+        
+    },
+    //
+    //Actualiza las variables de filtros según el formulario de filtros
+    actualizar_filtros: function(){
+        MapaAtributos.filtros.horario_extendido = $("#horario-extendido").val() == "true"? true:false
+        MapaAtributos.filtros.sin_costo = $("#sin-costo").val() == "true"? true:false
+        MapaAtributos.filtros.con_costo = $("#con-costo").val() == "true"? true:false
+        MapaAtributos.filtros.puntos_atencion = $("#puntos-atencion").val() == "true"? true:false
+        MapaAtributos.filtros.puntos_recaudo = $("#puntos-recaudo").val() == "true"? true:false
     },
     //
     // Cargar los puntos que retorna el setdatos
     cargar_todos_puntos: function(por_ciudad, callback){
         var url = MapaAtributos.general.puntos_json
+
+        //Ésta instrucción debe estar habilitada para que funcione en Manizales
+        //MapaAtributos.ciudad = ''
 
         if(MapaAtributos.ciudad != ''){
             url += "&$filter=municipio='"+MapaAtributos.ciudad+"'"
@@ -384,13 +432,18 @@ var MapaObjeto = {
                 try {
                     var parser = new DOMParser();
                     var xmlDoc = parser.parseFromString(this.responseText, "text/xml");
-                    console.log(xmlDoc)
                     var error = xmlDoc.getElementsByTagName("CodigoError")[0].childNodes[0].nodeValue
                     var error_msj = xmlDoc.getElementsByTagName("MensajeError")[0].childNodes[0].nodeValue
                     if(error != "0")
                         alert(error_msj)
-                    else
+                    else{
+                        alert(error_msj)
                         $.mobile.changePage("#map-page")
+                        
+                        $("#input-puntos").val(1).slider('refresh');
+                        $("#input-tipo").val("").selectmenu('refresh');
+                        $("#input-opinion").val("")
+                    }
                 }catch (e) {
                     alert("Lo sentimos. Intentalo de nuevo.")
                 }
@@ -404,10 +457,7 @@ var MapaObjeto = {
 */
 google.maps.event.addDomListener(window, 'load', function(){
     document.addEventListener("deviceready", function(){
-        //alert("¡Dispositivo listo!")
-        MapaObjeto.obtener_mi_posicion(function(){
-            //alert("¡Posición obtenida!")
-        })
+        MapaObjeto.obtener_mi_posicion(function(){})
     }, false);
 });
 

@@ -19,7 +19,11 @@ $( document ).on( "ready", function( event ){
         if( element.hasClass("external") ){
             window.location.href = element.attr( "href" )
         }else{
-            $.mobile.changePage( element.attr( "href" ) )
+            if(element.attr( "href" ) == "#filter-maps"){
+                $.mobile.changePage( element.attr( "href" ), {transition: 'pop', role: 'dialog'})
+            }else{
+                $.mobile.changePage( element.attr( "href" ) )
+            }
             Contenido.cargar( element.attr("href") )
         }
     })
@@ -45,6 +49,7 @@ var Contenido = {
     // Carga el contenido segun la petición de página que le halla llegado
     cargar: function( href ){
         if( href == "#map-page" ){
+            MapaObjeto.actualizar_filtros()
             $.mobile.loading('show', {
                 text: "Iniciando Google Maps",
                 textVisible: true,
@@ -64,6 +69,7 @@ var Contenido = {
                         textVisible: true,
                         textonly: false
                     });
+                    
                     MapaObjeto.cargar_todos_puntos( true, function(){
                         MapaObjeto.resize_trigger()
                         MapaObjeto.centrarme()
