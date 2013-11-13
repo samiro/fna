@@ -53,50 +53,45 @@ function solicitar_llamada(){
 					
 		
 					console.log(data)
+
+
         var xmlhttp = new window.XMLHttpRequest();
         xmlhttp.open('POST', 'https://www.fna.gov.co:8445/SolicitudAtencionClienteModuleWeb/sca/SolicitarAtencionWebService', true);
-        xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml;charset=UTF-8');
         xmlhttp.onreadystatechange = function () {
-         $.mobile.loading( "hide" );
-					
+          $.mobile.loading( "hide" );
             if (xmlhttp.readyState == 4) {
-			
                 try {
-				    var parser = new DOMParser();
-                    var xmlDoc = parser.parseFromString(this.responseText, "text/xml");
-                    console.log(xmlDoc)
-					alert("h");
-				    var error = xmlDoc.getElementsByTagName("codigo")[0].childNodes[0].nodeValue;
-					alert("ho");
-                    var error_msj = xmlDoc.getElementsByTagName("mensaje")[0].childNodes[0].nodeValue;
-				alert("hol");
-                  //  if(error != "0")
-				alert("hola");
-                        alert(error_msj)
-				alert("holaa");
-                    //else
-                      //  $.mobile.changePage("#map-page")
+                  var parser = new DOMParser();
+                  var xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                  
+                  var error = xmlDoc.getElementsByTagName("codigo")[0].childNodes[0].nodeValue;
+                  var error_msj = xmlDoc.getElementsByTagName("mensaje")[0].childNodes[0].nodeValue;
+                  
+                  if(error != "0")
+                    ir("asesoria-exitosa");
+                    //navigator.notification.alert(message, alertCallback, [title], [buttonName])
+                  else
+                    $.mobile.changePage("#map-page")
                 }catch (e) {
                     alert("Lo sentimos. Intentalo de nuevo.")
                 }
-            }
+          }
         }
         xmlhttp.send(data);	
         
-        ir("asesoria-exitosa");
 
         $("#nombre").val("");
-      //  $("#cedula").val("");
+        //$("#cedula").val("");
         $("#celular").val("");
         $("#direccion").val("");
         $("#email").val("");
-
      }else{
-     	setTimeout(function() {
-     		$.mobile.loading( "hide" );
-			alert(alerta);
-         	ir("asesoria-error");
-     	}, 500);
+     	  setTimeout(function() {
+     		 $.mobile.loading( "hide" );
+			   alert(alerta);
+         ir("asesoria-error");
+     	  }, 500);
      }
 }
 
