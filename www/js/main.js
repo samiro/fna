@@ -20,7 +20,7 @@ $( document ).on( "ready", function( event ){
         if( element.hasClass("external") ){
             window.location.href = element.attr( "href" )
         }else{
-            if(element.attr( "href" ) == "#filter-maps" || element.attr( "href" ) == "#acerca"){
+            if(element.attr( "href" ) == "#filter-maps" || element.attr( "href" ) == "#acerca" || element.attr( "href" ) == "#compartir"){
                 $.mobile.changePage( element.attr( "href" ), {transition: 'pop', role: 'dialog'})
             }else{
                 $.mobile.changePage( element.attr( "href" ) )

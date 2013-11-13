@@ -102,16 +102,16 @@
 
 
 	<div data-role="page" id="compartir" data-theme="b" data-close-btn="none">
-		<div data-role="header"  >
+		<div data-role="header" >
 			<h1>FNA en las redes</h1>
 		</div>
 		<div data-role="content">
-			<a href="https://plus.google.com/share?url=http://fna.gov.co" data-corners="false" data-role="button" data-theme="b">Google+</a>
-			<a href="https://www.facebook.com/sharer/sharer.php?u=http://fna.gov.co" target="_blank" data-corners="false" data-role="button" data-theme="b">Facebook</a>
-			<a href="https://twitter.com/intent/tweet?text=Visita fna.gov.co" data-corners="false" data-role="button" data-theme="b">Twitter</a>
-			<a href="http://www.linkedin.com/shareArticle?mini=true&url=http://fna.gov.co" data-corners="false" data-role="button" data-theme="b">Linkedin</a>
-
-			<a href="#" data-rel="back" data-role="button" data-theme="a">Cancelar</a>
+			<button data-theme="b" data-role="button" onclick="window.open('https://plus.google.com/share?url=http://fna.gov.co', '_system');">Google+</button>
+			<button data-theme="b" data-role="button" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=http://fna.gov.co', '_system');">Facebook</button>
+			<button data-theme="b" data-role="button" onclick="window.open('https://twitter.com/intent/tweet?text=Visita fna.gov.co', '_system');">Twitter</button>
+			<button data-theme="b" data-role="button" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=http://fna.gov.co', '_system');">Linkedin</button>
+			
+			<a href="#" data-rel="back" data-role="button" data-theme="a">Cerrar</a>
 		</div>
 	</div>
 
@@ -119,7 +119,7 @@
 
 
 	<div data-role="page" id="acerca" data-theme="b" data-close-btn="none">
-		<div data-role="header"  >
+		<div data-role="header" >
 			<h1>FNA En Tu Bolsillo <small>v1.0</small></h1>
 		</div>
 		<div data-role="content">
@@ -128,7 +128,7 @@
 			<img width="50%" src="img/logos_acerca/mintic.png" alt="MinTic">
 			<img width="25%" src="img/logos_acerca/fna-logo.png" alt="MinTic">
 			<p class="desarrollado">Desarrollado por</p>
-			<img class="engenial" width="50%" src="img/logos_acerca/logo-engenial.png" alt="Engenial">
+			<img onclick="window.open('http://www.engenial.co', '_system');" class="engenial" width="50%" src="img/logos_acerca/logo-engenial.png" alt="Engenial">
 			<p>Todos los derechos reservados - 2013</p>
 			<p class="claro">Aplicación bajo licencia GNU GPL</p>
 			<a href="#" data-rel="back" data-role="button" data-theme="a">Cerrar</a>
