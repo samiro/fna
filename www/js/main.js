@@ -35,6 +35,10 @@ $( document ).on( "ready", function( event ){
         var page = $(this)
         Contenido.cargar(page.attr("id"))
     })
+
+    $( "#portafolio" ).on( "pagebeforeshow", function( event ) { 
+        $('#portafolio li').removeClass('ui-btn-active ui-focus');
+    } )
     
 })
 

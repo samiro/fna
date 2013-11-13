@@ -7,6 +7,7 @@ var Portafolio = {
     //
     // Carga la información de educación en la página respectiva.
     cargar_educacion: function(){
+        
         $.mobile.loading( 'show', {
             text: "Consultando información educación...",
             textVisible: true,
