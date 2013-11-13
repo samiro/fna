@@ -137,7 +137,7 @@ var MapaObjeto = {
                         MapaAtributos.ciudad = ciudad.toUpperCase()
 
                     }catch(e){
-                        alert("No pudimos localizar tu ciudad. Elije una manualmente.");
+                        navigator.notification.alert("No pudimos localizar tu ciudad.", "", "Error", "Aceptar");
                     }
 
                     if(callback!=undefined)
@@ -146,12 +146,12 @@ var MapaObjeto = {
                 } else {
                     if(callback!=undefined)
                         callback()
-                    alert("No pudimos localizar tu ciudad. Elije una manualmente");
+                    navigator.notification.alert("No pudimos localizar tu ciudad.", "", "Error", "Aceptar");
                 }
             });
         }, 
         function( error ){
-            alert('Error obteniendo mi posicion! ' + error);
+            navigator.notification.alert("Error obteniendo mi posicion!", "", "Error", "Aceptar");
         });
     },
     //
@@ -170,7 +170,6 @@ var MapaObjeto = {
         if(MapaAtributos.mapa != null){
 
             if(MapaAtributos.mi_posicion != null){
-                //alert("ya estaba ubicado")
                 var position = MapaAtributos.mi_posicion
                 var lat = position.coords.latitude
                 var lon = position.coords.longitude
@@ -186,7 +185,6 @@ var MapaObjeto = {
                 if(callback != undefined)
                     callback()
             }else{
-                //alert("Voy a ubicarme")
                 MapaObjeto.obtener_mi_posicion(function(){
                     MapaObjeto.ubicarme(callback)
                 })
@@ -218,7 +216,7 @@ var MapaObjeto = {
                 */ 
             }
         }else{
-            alert("El mapa no se cargó no se puede ubicar mi posición")
+            navigator.notification.alert("El mapa no se cargó no se puede ubicar mi posición", "", "Error", "Aceptar");
         }
     },
     //
@@ -343,7 +341,7 @@ var MapaObjeto = {
                 
             },
             error: function (x, y, z) {
-                alert("Upps!. Ocurrió un error al cargar el mapa y sus puntos de atención.")
+                navigator.notification.alert("Ocurrió un error al cargar el mapa y sus puntos de atención.", "", "Error", "Aceptar");
             }
         });
     },
@@ -368,7 +366,7 @@ var MapaObjeto = {
               }
             });
         }else{
-            alert("No hemos podido determinar tu ubicación.")
+            navigator.notification.alert("No hemos podido determinar tu ubicación.", "", "Error", "Aceptar");
         }
     },
     //
@@ -392,12 +390,12 @@ var MapaObjeto = {
         var opinion = $("#input-opinion").val()
 
         if(puntos == "" ){
-            alert("Debes dar una calificación")
+            navigator.notification.alert("Debes dar una calificación.", "", "Error", "Aceptar");
             return false;
         }
 
         if(tipo == "" ){
-            alert("Debes seleccionar lo que calificas")
+            navigator.notification.alert("Debes seleccionar lo que calificas.", "", "Error", "Aceptar");
             return false;
         }
 
@@ -434,10 +432,10 @@ var MapaObjeto = {
                     var xmlDoc = parser.parseFromString(this.responseText, "text/xml");
                     var error = xmlDoc.getElementsByTagName("CodigoError")[0].childNodes[0].nodeValue
                     var error_msj = xmlDoc.getElementsByTagName("MensajeError")[0].childNodes[0].nodeValue
-                    if(error != "0")
-                        alert(error_msj)
-                    else{
-                        alert(error_msj)
+                    if(error != "0"){
+                        navigator.notification.alert(error_msj, "", "Error", "Aceptar");
+                    }else{
+                        navigator.notification.alert(error_msj, "", "Exito", "Aceptar");
                         $.mobile.changePage("#map-page")
                         
                         $("#input-puntos").val(1).slider('refresh');
@@ -445,7 +443,7 @@ var MapaObjeto = {
                         $("#input-opinion").val("")
                     }
                 }catch (e) {
-                    alert("Lo sentimos. Intentalo de nuevo.")
+                    navigator.notification.alert("Lo sentimos. Intentalo de nuevo.", "", "Exito", "Aceptar");
                 }
             }
         }
@@ -468,34 +466,3 @@ $(document).on("ready", function(){
         MapaObjeto.enviar_puntuacion()
     })
 })
-
-
-/*
-
-$.soap({
-            url: 'https://www.fna.gov.co:8445/PuntuacionHackatonServiceWeb/sca/WSPuntuacionServiceExport',
-            params: {
-                IdPuntoAtencion: MapaAtributos.punto_seleccionado.no,
-                ClaseCalificacion: tipo,
-                Calificacion: puntos,
-                Observaciones: opinion,
-                Celular: '3103184077'
-            },
-            dataType: "xml",
-            complete: function (soapResponse) {
-                $.mobile.loading( "hide" );
-                console.log(soapResponse)
-            },
-            success: function (soapResponse) {
-                $.mobile.loading( "hide" );
-                console.log(soapResponse)
-            },
-            error: function (SOAPResponse) {
-                $.mobile.loading( "hide" );
-                alert("Error")
-                console.log(SOAPResponse)
-            }
-        })
-
-
-*/

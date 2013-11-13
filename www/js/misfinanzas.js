@@ -92,9 +92,9 @@ $(document).on('ready', function(){
         var db = window.openDatabase("bd_finanzas", "1.0", "Mis finanzas", 200000);
         db.transaction(AgregarIngreso, errorOperacion, function(){
 			if(ing_vacios=="S"){
-				alert("Debe diligenciar todos los datos. El valor debe ser numérico y sin puntos.");
-			}else{		
-				alert("Información Almacenada!");
+                navigator.notification.alert("Debe diligenciar todos los datos. El valor debe ser numérico y sin puntos.", "", "Error", "Aceptar");
+			}else{
+                navigator.notification.alert("Información almacenada.", "", "Exito", "Aceptar");
 				RealizarConsultaIngre();
 				ir("inicio_finanzas");
 			}
@@ -128,13 +128,13 @@ $(document).on('ready', function(){
     // Transaction error callback
     //
     function errorOperacion(err) {
-        console.log(err);
-        alert("Error processing SQL: "+err);
+        //console.log(err);
+        navigator.notification.alert("Ocurrió un fallo, por favor vuelve a intentarlo.", "", "Error", "Aceptar");
     }
     // Transaction success callback
     //
     function efectuadaOperacion() {
-        alert("Información Almacenada!");
+        navigator.notification.alert("Información almacenada.", "", "Exito", "Aceptar");
         RealizarConsultaIngre();
         RealizarConsultaEgre();
     }
@@ -202,9 +202,9 @@ $(document).on('ready', function(){
         db.transaction(AgregarEgreso, errorOperacion, function(){
 		
 			if(egr_vacios=="S"){
-				alert("Debe diligenciar todos los datos. El valor de ser númerico y sin puntos.");
+                navigator.notification.alert("Debe diligenciar todos los datos. El valor de ser númerico y sin puntos.", "", "Error", "Aceptar");
 			}else{
-				alert("Información Almacenada!");
+                navigator.notification.alert("Información almacenada.", "", "Exito", "Aceptar");
 				RealizarConsultaEgre();
 				ir("inicio_finanzas");
 			}
@@ -339,29 +339,3 @@ $(document).on('ready', function(){
 	  $("#agregar_gasto input[name='montoEgr']").val("");
 	  $("#agregar_gasto input[name='notaEgr']").val("");
     }
-    
-    /**$.ajax({
-        url: 'https://www.fna.gov.co:8445/SolicitudAtencionClienteModuleWeb/sca/SolicitarAtencionWebService',
-        type: 'POST',
-        data: JSON.stringify({
-                "externalUserId": "EUIFNA",
-                "externalApplicationId": "1",
-                "nombre": $("#form_info_personal input[name='nombre']").val(),
-                "telefonoCelular": $("#form_info_personal input[name='celular']").val(),
-                "direccion": $("#form_info_personal input[name='direccion']").val(),
-                "correoElectronico": $("#form_info_personal input[name='email']").val()                
-             }),
-             dataType: "json",
-             contentType: "application/json; charset=utf-8",
-             processdata: true,
-             success: function (data) {
-            $.mobile.loading( "hide" );
-            console.log(data);
-       
-        },
-        error: function (x, y, z) {
-            $.mobile.loading( "hide" );
-            alert("Upps! Error")
-        }
-    });**/
-

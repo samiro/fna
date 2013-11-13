@@ -49,34 +49,43 @@ var Contenido = {
     // Carga el contenido segun la petición de página que le halla llegado
     cargar: function( href ){
         if( href == "#map-page" ){
-            MapaObjeto.actualizar_filtros()
-            $.mobile.loading('show', {
-                text: "Iniciando Google Maps",
-                textVisible: true,
-                textonly: false
-            });
-            MapaObjeto.inicializar( function(){
-                $.mobile.loading( "hide" );
+            if ( Contenido.tiene_conexion() ){
+                MapaObjeto.actualizar_filtros()
                 $.mobile.loading('show', {
-                    text: "Ubicando mi posición",
+                    text: "Iniciando Google Maps",
                     textVisible: true,
                     textonly: false
                 });
-                MapaObjeto.ubicarme( function(){
+                MapaObjeto.inicializar( function(){
                     $.mobile.loading( "hide" );
                     $.mobile.loading('show', {
-                        text: "Cargando puntos FNA",
+                        text: "Ubicando mi posición",
                         textVisible: true,
                         textonly: false
                     });
-                    
-                    MapaObjeto.cargar_todos_puntos( true, function(){
-                        MapaObjeto.resize_trigger()
-                        MapaObjeto.centrarme()
+                    MapaObjeto.ubicarme( function(){
                         $.mobile.loading( "hide" );
+                        $.mobile.loading('show', {
+                            text: "Cargando puntos FNA",
+                            textVisible: true,
+                            textonly: false
+                        });
+                        MapaObjeto.cargar_todos_puntos( true, function(){
+                            MapaObjeto.resize_trigger()
+                            MapaObjeto.centrarme()
+                            $.mobile.loading( "hide" );
+                        })
                     })
                 })
-            })
+            } else {
+                navigator.notification.alert(
+                    "Debes tener conexión a internet para acceder a ésta sección",
+                    function(){
+                        $.mobile.changePage( "#inicio" )
+                    }, 
+                    "Sin conexión", 
+                    "Aceptar")
+            }
         } else if( href ==  "#educacion" ){
             Portafolio.cargar_educacion()
 
@@ -90,71 +99,37 @@ var Contenido = {
             Portafolio.cargar_ahorro()
 
         } else if( href == "#asesoria" ){
-            if(localStorage.getItem("nombre")!= null){
-                 $("#nombre").val(localStorage.getItem("nombre"));
-                 $("#cedula").val(localStorage.getItem("cedula"));
-                 $("#celular").val(localStorage.getItem("telefonoCelular"));
-                 $("#direccion").val(localStorage.getItem("direccion"));
-                 $("#email").val(localStorage.getItem("email"));
+            if ( Contenido.tiene_conexion() ){
+                if(localStorage.getItem("nombre")!= null){
+                     $("#nombre").val(localStorage.getItem("nombre"));
+                     $("#cedula").val(localStorage.getItem("cedula"));
+                     $("#celular").val(localStorage.getItem("telefonoCelular"));
+                     $("#direccion").val(localStorage.getItem("direccion"));
+                     $("#email").val(localStorage.getItem("email"));
+                }
+            }else{
+                navigator.notification.alert(
+                    "Debes tener conexión a internet para acceder a ésta sección",
+                    function(){
+                        $.mobile.changePage( "#inicio" )
+                    }, 
+                    "Sin conexión", 
+                    "Aceptar")
             }
+        }
+    }, 
+    //
+    // verifica si tiene o nó conexión a internet el celular.
+    tiene_conexion = function(){
+        if (navigator.connection.type == Connection.NONE){
+            return false;
+        }else{
+            return true;
         }
     }
 }
 
 
-
-
-
-
-
-
-/*
-$.ajax({
-            url: "https://www.fna.gov.co:8445/PuntuasdasdacionHackatonServiceWeb/sca/WSPuntuacionServiceExport",
-            type: 'POST',
-            data: {
-                IdPuntoAtencion: punto.no,
-                ClaseCalificacion: 'Otro',
-                Calificacion: 3,
-                Observaciones: 'Descripcion opcional',
-                Celular: '3103184077'
-            },
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (x, y, z) {
-                alert("Error puntuando")
-            }
-        });*/
-
-
 function ir(idpage){
       $.mobile.changePage('#'+idpage)
     }
-
-
-
-    /**$.ajax({
-        url: 'https://www.fna.gov.co:8445/SolicitudAtencionClienteModuleWeb/sca/SolicitarAtencionWebService',
-        type: 'POST',
-        data: JSON.stringify({
-                "externalUserId": "EUIFNA",
-                "externalApplicationId": "1",
-                "nombre": $("#form_info_personal input[name='nombre']").val(),
-                "telefonoCelular": $("#form_info_personal input[name='celular']").val(),
-                "direccion": $("#form_info_personal input[name='direccion']").val(),
-                "correoElectronico": $("#form_info_personal input[name='email']").val()                
-             }),
-             dataType: "json",
-             contentType: "application/json; charset=utf-8",
-             processdata: true,
-             success: function (data) {
-            $.mobile.loading( "hide" );
-            console.log(data);
-       
-        },
-        error: function (x, y, z) {
-            $.mobile.loading( "hide" );
-            alert("Upps! Error")
-        }
-    });**/

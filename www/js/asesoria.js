@@ -15,22 +15,23 @@ function solicitar_llamada(){
     var alerta = validar_datos();
 
     if(alerta == ""){
-       // localStorage.setItem("nombre", $("#form_info_personal input[name='nombre']").val());
-       // localStorage.setItem("telefonoCelular", $("#form_info_personal input[name='celular']").val());
-       // localStorage.setItem("direccion", $("#form_info_personal input[name='direccion']").val());
-       // localStorage.setItem("email", $("#form_info_personal input[name='email']").val());
-       // localStorage.setItem("cedula", $("#form_info_personal input[name='cedula']").val());
-       // $.mobile.loading( "hide" );
-			
-		var nombre = $("#form_info_personal input[name='nombre']").val();
-		var celular = $("#form_info_personal input[name='celular']").val();
-		var direccion = $("#form_info_personal input[name='direccion']").val();
-		var correo = $("#form_info_personal input[name='email']").val();
-		//var cc= $("#form_info_personal input[name='cedula']").val();
-		$.mobile.loading( "hide" );		
 
-        //Llamado al web service		
-		var data =	'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:isol="http://SolicitudAtencionClienteModule/ISolicitarAtencionWebService">'+
+      localStorage.setItem("nombre", $("#form_info_personal input[name='nombre']").val());
+      localStorage.setItem("telefonoCelular", $("#form_info_personal input[name='celular']").val());
+      localStorage.setItem("direccion", $("#form_info_personal input[name='direccion']").val());
+      localStorage.setItem("email", $("#form_info_personal input[name='email']").val());
+      localStorage.setItem("cedula", $("#form_info_personal input[name='cedula']").val());
+      
+  		var nombre = $("#form_info_personal input[name='nombre']").val();
+  		var celular = $("#form_info_personal input[name='celular']").val();
+  		var direccion = $("#form_info_personal input[name='direccion']").val();
+  		var correo = $("#form_info_personal input[name='email']").val();
+  		//var cc= $("#form_info_personal input[name='cedula']").val();
+
+  		$.mobile.loading( "hide" );		
+
+      //Llamado al web service		
+  		var data =	'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:isol="http://SolicitudAtencionClienteModule/ISolicitarAtencionWebService">'+
 					'<soapenv:Header/>'+
 					'<soapenv:Body>'+
 						'<isol:solicitarAtencionCliente>'+
@@ -51,9 +52,6 @@ function solicitar_llamada(){
 					'</soapenv:Body>'+
 					'</soapenv:Envelope>';					
 					
-		
-					console.log(data)
-
 
         var xmlhttp = new window.XMLHttpRequest();
         xmlhttp.open('POST', 'https://www.fna.gov.co:8445/SolicitudAtencionClienteModuleWeb/sca/SolicitarAtencionWebService', true);
@@ -68,13 +66,15 @@ function solicitar_llamada(){
                   var error = xmlDoc.getElementsByTagName("codigo")[0].childNodes[0].nodeValue;
                   var error_msj = xmlDoc.getElementsByTagName("mensaje")[0].childNodes[0].nodeValue;
                   
-                  if(error != "0")
+                  if(error == "0"){
+                    //navigator.notification.alert(error_msj, "", "Exito", "Aceptar")
+                    $("#asesoria-exitosa .respuesta h1").html(error_msj)
                     ir("asesoria-exitosa");
-                    //navigator.notification.alert(message, alertCallback, [title], [buttonName])
-                  else
-                    $.mobile.changePage("#map-page")
+                  }else{
+                    navigator.notification.alert(error_msj, "", "Error", "Aceptar")
+                  }
                 }catch (e) {
-                    alert("Lo sentimos. Intentalo de nuevo.")
+                    navigator.notification.alert("Lo sentimos. Inténtalo de nuevo", "", "Error", "Aceptar")
                 }
           }
         }
@@ -86,12 +86,10 @@ function solicitar_llamada(){
         $("#celular").val("");
         $("#direccion").val("");
         $("#email").val("");
+        
      }else{
-     	  setTimeout(function() {
      		 $.mobile.loading( "hide" );
-			   alert(alerta);
-         ir("asesoria-error");
-     	  }, 500);
+			   navigator.notification.alert(alerta, "", "Error", "Aceptar")
      }
 }
 
