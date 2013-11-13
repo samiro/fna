@@ -53,6 +53,23 @@ body .ui-header .ui-btn-right{
     box-shadow: none;
     color: #777;
 }
+body .ui-header .ui-btn-left-2{
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    border-radius: 0;
+    border: 0;
+    border-right: 1px solid #bbb;
+    
+    background: transparent;
+
+    text-shadow: 0 1px 0 #eee;
+    box-shadow: none;
+    color: #777;
+    margin-top: 0;
+}
+body .ui-header .ui-btn-left-2 .ui-btn-inner,
 body .ui-header .ui-btn-right .ui-btn-inner{
     padding: 13px 11px 0;
 }
@@ -719,4 +736,37 @@ body .ui-block-a .servicios-tit,
     line-height: 38px;
     font-size: 32px;
     margin: 40px 0;
+}
+
+#acerca .ui-content{
+    text-align: center;
+}
+#acerca .ui-content p{
+    margin: 0;
+    padding: 0;
+}
+#acerca img{
+    vertical-align: middle;
+}
+#acerca .ui-header .ui-title{
+    margin-top: 12px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+#acerca .ui-header .ui-title small{
+    color: #aaa;
+}
+#acerca .ui-content p.subtitulo{
+    padding-top: 15px;
+}
+#acerca .ui-content p.desarrollado{
+    padding-top: 20px;
+}
+#acerca .ui-content p.claro{
+    color: #666;
+    padding-bottom: 40px;
+    padding-top: 5px;
+}
+#acerca .engenial{
+    margin: 10px 0 20px;
 }

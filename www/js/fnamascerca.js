@@ -69,7 +69,7 @@ var MapaAtributos = {
     //
     //Configuración usada para el mapa
     opciones_mapa: {
-            zoom: 14,
+            zoom: 5,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: new google.maps.LatLng(5.067132, -75.518288),
             panControl: false,
@@ -257,6 +257,8 @@ var MapaObjeto = {
     // Cargar los puntos que retorna el setdatos
     cargar_todos_puntos: function(por_ciudad, callback){
         var url = MapaAtributos.general.puntos_json
+
+        MapaAtributos.mapa.setZoom(15);
 
         //Ésta instrucción debe estar habilitada para que funcione en Manizales
         //MapaAtributos.ciudad = ''

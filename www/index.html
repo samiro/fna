@@ -11,8 +11,11 @@
 	<link rel="stylesheet" href="css/styles.css">
 	<link rel="stylesheet" href="css/font.css">
 
+	<!-- En pruebas en movil habilitar -->
+	<!--<script type="text/javascript" src="cordova.js"></script>-->
+	<!-- En pruebas en movil no habilitar -->
+	<script type="text/javascript" src="js/debug.js"></script>
 
-	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.mobile-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.soap.js"></script>
@@ -27,9 +30,9 @@
 </head>
 <body>
 
-
 	<div data-role="page" id="inicio" data-transition="slide">
 		<div data-role="header" data-position="fixed">
+			<a href="#acerca" class="ui-btn-left-2" data-transition="slidedown" data-rel="dialog" data-theme="b">Acerca</a>
 			<h1>Inicio</h1>
 			<a href="#compartir" class="ui-btn-right" data-transition="slidedown" data-rel="dialog" data-theme="b">Compartir</a>
 		</div>
@@ -109,6 +112,26 @@
 			<a href="http://www.linkedin.com/shareArticle?mini=true&url=http://fna.gov.co" data-corners="false" data-role="button" data-theme="b">Linkedin</a>
 
 			<a href="#" data-rel="back" data-role="button" data-theme="a">Cancelar</a>
+		</div>
+	</div>
+
+
+
+
+	<div data-role="page" id="acerca" data-theme="b" data-close-btn="none">
+		<div data-role="header"  >
+			<h1>FNA En Tu Bolsillo <small>v1.0</small></h1>
+		</div>
+		<div data-role="content">
+			<p class="subtitulo">FNA En Tu Bolsillo</p>
+			<p>Versión 1.0</p>
+			<img width="50%" src="img/logos_acerca/mintic.png" alt="MinTic">
+			<img width="25%" src="img/logos_acerca/fna-logo.png" alt="MinTic">
+			<p class="desarrollado">Desarrollado por</p>
+			<img class="engenial" width="50%" src="img/logos_acerca/logo-engenial.png" alt="Engenial">
+			<p>Todos los derechos reservados - 2013</p>
+			<p class="claro">Aplicación bajo licencia GNU GPL</p>
+			<a href="#" data-rel="back" data-role="button" data-theme="a">Cerrar</a>
 		</div>
 	</div>
 

@@ -2,6 +2,7 @@ $.mobile.defaultPageTransition   = 'none'
 $.mobile.defaultDialogTransition = 'none'
 $.mobile.buttonMarkup.hoverDelay = 0
 
+
 $( document ).on( "ready", function( event ){
     //
     // Esto es para modificar el comportamiento cada vez que se le hace click a un 
@@ -19,7 +20,7 @@ $( document ).on( "ready", function( event ){
         if( element.hasClass("external") ){
             window.location.href = element.attr( "href" )
         }else{
-            if(element.attr( "href" ) == "#filter-maps"){
+            if(element.attr( "href" ) == "#filter-maps" || element.attr( "href" ) == "#acerca"){
                 $.mobile.changePage( element.attr( "href" ), {transition: 'pop', role: 'dialog'})
             }else{
                 $.mobile.changePage( element.attr( "href" ) )
@@ -63,7 +64,9 @@ var Contenido = {
                         textVisible: true,
                         textonly: false
                     });
+
                     MapaObjeto.ubicarme( function(){
+                        
                         $.mobile.loading( "hide" );
                         $.mobile.loading('show', {
                             text: "Cargando puntos FNA",
@@ -120,16 +123,18 @@ var Contenido = {
     }, 
     //
     // verifica si tiene o nó conexión a internet el celular.
-    tiene_conexion = function(){
+    tiene_conexion: function(){
         if (navigator.connection.type == Connection.NONE){
             return false;
         }else{
             return true;
         }
     }
+
 }
 
 
+//Con esta funciona se cambia a la página atrevéz del identificador
 function ir(idpage){
       $.mobile.changePage('#'+idpage)
     }
