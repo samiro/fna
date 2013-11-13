@@ -152,7 +152,8 @@ var MapaObjeto = {
         }, 
         function( error ){
             navigator.notification.alert("Error obteniendo mi posicion!", "", "Error", "Aceptar");
-        });
+        },
+        { timeout: 10000 });
     },
     //
     // Si ya tiene mi ubicación centra el mapa en éste punto

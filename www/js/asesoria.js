@@ -67,6 +67,11 @@ function solicitar_llamada(){
                   
                   if(error == "0"){
                     $("#asesoria-exitosa .respuesta h1").html(error_msj)
+                    $("#nombre").val("");
+                    $("#celular").val("");
+                    $("#direccion").val("");
+                    $("#email").val("");
+                    
                     ir("asesoria-exitosa");
                   }else{
                     navigator.notification.alert(error_msj, "", "Error", "Aceptar")
@@ -77,13 +82,6 @@ function solicitar_llamada(){
           }
         }
         xmlhttp.send(data);	
-        
-
-        $("#nombre").val("");
-        $("#celular").val("");
-        $("#direccion").val("");
-        $("#email").val("");
-        
      }else{
      		 $.mobile.loading( "hide" );
 			   navigator.notification.alert(alerta, "", "Error", "Aceptar")
