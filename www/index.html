@@ -12,9 +12,9 @@
 	<link rel="stylesheet" href="css/font.css">
 
 	<!-- En pruebas en movil habilitar -->
-	<!--<script type="text/javascript" src="cordova.js"></script>-->
+	<script type="text/javascript" src="cordova.js"></script>
 	<!-- En pruebas en movil no habilitar -->
-	<script type="text/javascript" src="js/debug.js"></script>
+	<!--<script type="text/javascript" src="js/debug.js"></script>-->
 
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.mobile-1.3.2.min.js"></script>
@@ -441,7 +441,7 @@
 
     <div data-role="page" id="asesoria">
         <div data-role="header" data-position="fixed">
-			<a href="#inicio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
+			<a href="#inicio" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
 			<h1>Asesoría</h1>
 		</div>
         <div data-role="content">
@@ -455,7 +455,7 @@
                     <input type="number" name="cedula" id="cedula" />
                 </div>-->
                 <div data-role="fieldcontain">
-                    <label for="celular">Número celular:</label><br>
+                    <label for="celular">Número de celular:</label><br>
                     <input type="tel" name="celular" id="celular" />
                 </div>
                 <div data-role="fieldcontain">
@@ -495,7 +495,7 @@
 
     <div data-role="page" id="asesoria-exitosa">
         <div data-role="header" data-position="fixed">
-			<a href="#inicio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
+			<a href="#inicio" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
 			<h1>Asesoría</h1>
 		</div>
 
@@ -538,7 +538,7 @@
 
     <div data-role="page" id="asesoria-error">
         <div data-role="header" data-position="fixed">
-			<a href="#inicio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
+			<a href="#inicio" class="ui-btn-left" data-theme="b" data-transition="slide">Inicio</a>
 			<h1>Asesoría</h1>
 		</div>
 
@@ -575,71 +575,6 @@
 			</div>
 		</div>
     </div>
-
-
-<!--
-
-    <div data-role="page" class="imagen-header" id="simulador">
-		<div data-role="header">
-		  	<a href="#" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
-		    <h1>Simulador</h1>
-		</div>
-	  	<div data-role="content">
-	  		<div class="servicios-imagen">
-					<img src="img/imagen-simulador.png" >
-					<p>Simulador de crédito</p>
-			</div>
-
-	        <div data-role="fieldcontain">
-	            <label for="montoIng">Valor:</label>
-	            <input type="number" name="montoIng" id="montoIng" />
-	        </div>
-
-	        <div data-role="fieldcontain">
-	            <label for="monto">Monto a solicitar:</label>
-	            <input type="text" name="monto" id="monto" />
-	        </div>
-
-	        <div data-role="fieldcontain">
-	            <label for="anios">Años:</label>
-	            <input type="text" name="anios" id="anios" />
-	        </div>
-
-	        <div data-role="fieldcontain">
-	            <label for="ingresos">Ingresos:</label>
-	            <input type="text" name="ingresos" id="ingresos" />
-	        </div>
-
-	        <div data-role="fieldcontain">
-	            <label for="egresos">Egresos:</label>
-	            <input type="text" name="egresos" id="egresos" />
-	        </div>
-	        
-	       <a href="javascript:calcularSimulador()" data-role="button" data-theme="b" data-icon="plus">Calcular</a>
-	  	</div>
-		<div data-role="footer">
-			<div>
-				<a href="#map-page" id="flink-puntos" data-transition="slide">
-					<span></span>
-				</a>
-				<a href="#portafolio" id="flink-portafolio" data-transition="slide">
-					<span></span>
-				</a>
-				<a href="#asesoria" id="flink-asesoria" data-transition="slide">
-					<span></span>
-				</a>
-				<a href="#inicio_finanzas" id="flink-finanzas" data-transition="slide">
-					<span></span>
-				</a>
-			</div>
-		</div>
-	</div>
-
-
-
-
-  
--->
 
 </body>
 </html>

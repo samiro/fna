@@ -26,7 +26,6 @@ function solicitar_llamada(){
   		var celular = $("#form_info_personal input[name='celular']").val();
   		var direccion = $("#form_info_personal input[name='direccion']").val();
   		var correo = $("#form_info_personal input[name='email']").val();
-  		//var cc= $("#form_info_personal input[name='cedula']").val();
 
   		$.mobile.loading( "hide" );		
 
@@ -67,7 +66,6 @@ function solicitar_llamada(){
                   var error_msj = xmlDoc.getElementsByTagName("mensaje")[0].childNodes[0].nodeValue;
                   
                   if(error == "0"){
-                    //navigator.notification.alert(error_msj, "", "Exito", "Aceptar")
                     $("#asesoria-exitosa .respuesta h1").html(error_msj)
                     ir("asesoria-exitosa");
                   }else{
@@ -82,7 +80,6 @@ function solicitar_llamada(){
         
 
         $("#nombre").val("");
-        //$("#cedula").val("");
         $("#celular").val("");
         $("#direccion").val("");
         $("#email").val("");
@@ -106,19 +103,19 @@ function validar_datos(){
                             validarEmail($("#form_info_personal input[name='email']").val())){
                                  NoCumple = "";
                          }else{
-                            NoCumple = "Deber diligenciar el correo correctamente"
+                            NoCumple = "Debes diligenciar el correo correctamente"
                         }
                     // }else{
-                    //    NoCumple = "Deber diligenciar la cédula correctamente"
+                    //    NoCumple = "Debes diligenciar la cédula correctamente"
                     //}
                 }else{
-                    NoCumple = "Deber diligenciar el celular correctamente"
+                    NoCumple = "Debes diligenciar el celular correctamente"
                 }
             }else{
-                 NoCumple = "Deber diligenciar la dirección correctamente"
+                 NoCumple = "Debes diligenciar la dirección correctamente"
             }
         }else{
-            NoCumple = "Deber diligenciar el nombre correctamente"
+            NoCumple = "Debes diligenciar el nombre correctamente"
         }
 
         return NoCumple;
