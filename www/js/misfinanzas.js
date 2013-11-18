@@ -114,7 +114,7 @@ $(document).on('ready', function(){
         var nota = $("#agregar_ingreso input[name='notaIng']").val();
 		ing_vacios = "";
 		
-		if(valor != "" && nota != ""){
+		if(valor != ""){
 
        // tx.executeSql('DROP TABLE IF EXISTS ingresos');
        // tx.executeSql('CREATE TABLE IF NOT EXISTS ingresos (fecha_ing, valor_ing, tipo_ing, nota_ing)');
@@ -222,7 +222,7 @@ $(document).on('ready', function(){
         var tipo = $("#agregar_gasto [name='tipoEgr']").val();
         var nota = $("#agregar_gasto input[name='notaEgr']").val();
 		egr_vacios = "";
-		if(valor != "" && nota!=""){
+		if(valor != ""){
 			tx.executeSql('INSERT INTO egresos (fecha_eg, valor_eg, tipo_eg, nota_eg) VALUES ("'+hoy+'", "'+valor+'", "'+tipo+'","'+nota+'")');
 		}else{
 			egr_vacios= "S";

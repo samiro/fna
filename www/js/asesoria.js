@@ -3,6 +3,10 @@ $(document).on("ready", function(){
 		event.preventDefault()
 		solicitar_llamada()
 	})
+	$(".btn-limpiar").tap(function(event){
+		event.preventDefault()
+		limpiar()
+	})
 })
 
 function solicitar_llamada(){
@@ -136,6 +140,13 @@ function validarEmail(email) {
             return false;
         else
             return true;
+}
+
+function limpiar(){
+	$("#form_info_personal input[name='nombre']").val("");
+  	$("#form_info_personal input[name='celular']").val("");
+  	$("#form_info_personal input[name='direccion']").val("");
+  	$("#form_info_personal input[name='email']").val("");
 }
 
  

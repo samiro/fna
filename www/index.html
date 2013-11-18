@@ -23,7 +23,7 @@
 
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="js/fnamascerca.js"></script>
-	<script type="text/javascript" src="js/portafolio.js"></script>
+	<!--<script type="text/javascript" src="js/portafolio.js"></script-->
 	<script type="text/javascript" src="js/asesoria.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 
@@ -238,19 +238,19 @@
 	        <ul class="lista-portafolio" data-corners="false" data-role="listview" data-inset="true">
 	            <li>
 	            	<a href="#educacion">
-	                <h2>Educación</h2>
+	                <h2>Financiación para educación</h2>
 	                <p>Oportunidades en el exterior y local</p>
 	            </a></li>
 	            <li><a href="#vivienda">
-	                <h2>Vivienda</h2>
+	                <h2>Financiación para vivienda</h2>
 	                <p>Como adquirir vivienda propia</p>
 	            </a></li>
 	            <li><a href="#ahorro">
-	               <h2>Ahorro</h2>
-	                <p>Facilidades de ahorrar</p>
+	               <h2>Ahorro Voluntario</h2>
+	                <p>Facilidades de ahorro</p>
 	            </a></li>
 	            <li><a href="#cesantias">
-	                 <h2>Cesantías</h2>
+	                 <h2>Administración de cesantías</h2>
 	                <p>Como vincularse y aprovecharlas</p>
 	             </a></li>
 	       </ul>
@@ -276,9 +276,6 @@
 
 
 
-
-
-
     <div data-role="page" id="educacion">
 	   <div data-role="header" data-position="fixed">
 			<a href="#portafolio" data-icon="back" data-rel="back" class="ui-btn-left" data-theme="b" data-transition="slide">Atrás</a>
@@ -288,12 +285,12 @@
     	<div data-role="content">
             
     		<div class="ui-grid-solo">
-              <div class="ui-block-a logo"><img id="imagen_edu"></div>
-    		  <div class="ui-block-a servicios-tit"><strong><label id="titulo_edu"></label></strong>
+              <div class="ui-block-a logo"><img id="imagen_edu" src="img/servicios/fna_educacion.png"></div>
+    		  <div class="ui-block-a servicios-tit"><strong><label id="titulo_edu">Financiación para educación</label></strong>
               </div>
     		</div>
     		<div class="ui-grid-solo">
-    		  <div class="ui-block-a p"><p class="servicios-desc" id="contenido_edu"></p></div>
+    		  <div class="ui-block-a p"><p class="servicios-desc" id="contenido_edu">Es un servicio de financiación que cubre hasta el 100% del valor de la matrícula para cada periodo académico que vaya a cursar, en programas de educación superior: técnico, tecnológico, pregrado, postgrado (especialización, maestría, doctorado y postdoctorado), esta última se puede cursar en Colombia y en el exterior, además carreras de oficial o suboficial de las Fuerzas Militares de la República de Colombia y de la Policía Nacional y educación continuada o cursos de actualización y bilingüismo. <br><br> Los usuarios del crédito para educación son: el afiliado, el cónyuge o compañero (a) permanente, los hijos, los nietos, hermanos y sobrinos del afiliado.</p></div>
     		</div>
     	</div>
 
@@ -329,12 +326,26 @@
 		</div>
         <div data-role="content">
             <div class="ui-grid-solo">
-              <div class="ui-block-a logo"><img id="imagen_viv"></div>
-              <div class="ui-block-a servicios-tit"><strong><label id="titulo_viv"></label></strong></div>
+              <div class="ui-block-a logo"><img id="imagen_viv" src="img/servicios/fna_vivienda.png"></div>
+              <div class="ui-block-a servicios-tit"><strong><label id="titulo_viv">Financiación para vivienda</label></strong></div>
             </div>
             <div class="ui-grid-solo">
               <div class="ui-block-a">
-              	<p class="servicios-desc" id="contenido_viv"></p>
+              	<p class="servicios-desc" id="contenido_viv">Por el solo hecho de AHORRAR o tener tus cesantías en el Fondo Nacional del AHORRO, puedes tener acceso a estudio de financiamiento de vivienda. <br><br>
+					<strong style='text-align: left;'>Beneficios de financiación para viviendas</strong>
+					<ul>
+						<li>No te impondrán sanciones por prepago total o parcial.</li>
+						<li>No requieres de codeudores para solicitar y/o aprobar el financiamiento de Vivienda.</li>
+						<li>Puedes solicitar un préstamo para:
+							<ul>
+								<li>Compra de vivienda. (Nueva o Usada).</li>
+								<li>Liberación de gravamen hipotecario.</li>
+								<li>Construcción de vivienda.</li>
+								<li>Mejora de vivienda.</li>
+							</ul>
+						</li>
+					</ul>
+				</p>
               </div>
             </div>
         </div>
@@ -370,11 +381,19 @@
     	</div>
         <div data-role="content">
             <div class="ui-grid-solo">
-                 <div class="ui-block-a logo"><img id="imagen_aho"></div>
-              <div class="ui-block-a servicios-tit"><strong><label id="titulo_aho"></label></strong></div>
+                 <div class="ui-block-a logo"><img id="imagen_aho" src="img/servicios/fna_ahorro.png"></div>
+              <div class="ui-block-a servicios-tit"><strong><label id="titulo_aho">Ahorro voluntario contractual</label></strong></div>
             </div>
             <div class="ui-grid-solo">
-              <div class="ui-block-a"><p class="servicios-desc" id="contenido_aho"></p></div>
+              <div class="ui-block-a">
+			  <p class="servicios-desc" id="contenido_aho">Es una cuenta individual, en la que, por medio de un contrato, cada afiliado se compromete a consignar una suma fija en la fecha escogida. Con el fin de que al año de AHORRO, pueda tener acceso al estudio de financiamiento de Vivienda y/o Educación. <br><br>
+				<strong style='text-align: left;'>Beneficios:</strong>
+				<ul>
+					<li>Financiamiento de Vivienda y Educación.</li>
+					<li>No te cobran cuota de administración.</li>
+				</ul>
+			  </p>
+			</div>
             </div>
         </div>
         <div data-role="footer">
@@ -395,12 +414,7 @@
 		</div>
     </div>
 
-
-
-
-
-
-
+	
 
     <div data-role="page" id="cesantias">
         <div data-role="header" data-position="fixed">
@@ -410,11 +424,21 @@
 		</div>
         <div data-role="content">
             <div class="ui-grid-solo">
-              <div class="ui-block-a logo"><img id="imagen_ces"></div>
-              <div class="ui-block-a servicios-tit"><strong><label id="titulo_ces"></label></strong></div>
+              <div class="ui-block-a logo"><img id="imagen_ces"src="img/servicios/fna_cesantias.png"></div>
+              <div class="ui-block-a servicios-tit"><strong><label id="titulo_ces">Administración de cesantías</label></strong></div>
             </div>
             <div class="ui-grid-solo">
-              <div class="ui-block-a"><p class="servicios-desc" id="contenido_ces"></p></div>
+              <div class="ui-block-a">
+			  <p class="servicios-desc" id="contenido_ces">Es una prestación social de carácter especial que constituye un AHORRO forzoso de los trabajadores para auxiliarlos en caso de quedar cesantes, la cual deberá pagarse por regla general al terminar el contrato de trabajo y de manera excepcional como simple anticipo para pagar, adquirir, construir, mejorar o liberar gravámenes de bienes raíces destinados a la vivienda del trabajador o para financiar o pagar matriculas y demás conceptos de educación del trabajador, su cónyuge, compañero permanente e hijos. <br><br>
+				<strong style='text-align: left;'>Beneficios:</strong>
+				<ul>
+					<li>Financiamiento de Vivienda y Educación.</li>
+					<li>No te cobra cuota de administración. </li>
+					<li> No te cobra comisión por retiros parciales o definitivos. </li>
+					<li>Los servidores públicos con régimen de retroactividad, no pierden este derecho al trasladarse al Fondo Nacional del AHORRO.</li>
+				</ul>
+			</p>
+			</div>
             </div>
         </div>
         <div data-role="footer">
@@ -467,8 +491,8 @@
                     <input type="email" name="email" id="email" />
                 </div>
             </form>
-
             <button type="button" data-role="button" data-theme="b" class="btn-solicitar">Solicitar asesoria</button>
+			<button type="button" data-role="button" data-theme="b" class="btn-limpiar">Limpiar campos</button>
         </div>
         <div data-role="footer">
 			<div>
