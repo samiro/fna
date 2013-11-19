@@ -366,6 +366,15 @@ var MapaObjeto = {
               if (status == google.maps.DirectionsStatus.OK) {
                 info_window.close()
                 directionsDisplay.setDirections(response);
+              }else if(status == google.maps.DirectionsStatus.NOT_FOUND || status == google.maps.DirectionsStatus.ZERO_RESULTS ){
+                info_window.close()
+                navigator.notification.alert("No es posible calcular ruta hasta ése destino.", "", "Lo sentimos", "Aceptar");
+              }else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT || status == google.maps.DirectionsStatus.REQUEST_DENIED ){
+                info_window.close()
+                navigator.notification.alert("Ésta funcionalidad no es posible usarla por el momento. Intenta más tarde.", "", "Lo sentimos", "Aceptar");
+              }else{
+                info_window.close()
+                navigator.notification.alert("No es posible calcular ruta hasta ése destino.", "", "Lo sentimos", "Aceptar");
               }
             });
         }else{
@@ -380,9 +389,10 @@ var MapaObjeto = {
     //
     //Mostrar la ventana de la puntuación
     mostrar_puntuacion: function(){
-        $("#input-puntos").val(0)
-        $("#input-tipo").val("")
+        $("#input-puntos").val(1).slider('refresh');
+        $("#input-tipo").val("").selectmenu('refresh');
         $("#input-opinion").val("")
+
         $.mobile.changePage("#puntuar", {transition: 'pop', role: 'dialog'})
     },
     //
@@ -446,7 +456,7 @@ var MapaObjeto = {
                         $("#input-opinion").val("")
                     }
                 }catch (e) {
-                    navigator.notification.alert("Lo sentimos. Intentalo de nuevo.", "", "Exito", "Aceptar");
+                    navigator.notification.alert("Lo sentimos. Intentalo de nuevo.", "", "Error", "Aceptar");
                 }
             }
         }
