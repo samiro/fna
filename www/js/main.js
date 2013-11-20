@@ -25,20 +25,26 @@ $( document ).on( "ready", function( event ){
             }else{
                 $.mobile.changePage( element.attr( "href" ) )
             }
-            Contenido.cargar( element.attr("href") )
+            //Contenido.cargar( element.attr( "href" ) )
         }
     })
-    //
-    // Cargamos el contenido de cada sección cuando se accede a ella
-    // por primera vez
-    $("[data-role='page']").on("pageinit", function(){
+
+    $("[data-role='page']").on("pageshow", function(){
         var page = $(this)
-        Contenido.cargar(page.attr("id"))
+        Contenido.cargar("#" + page.attr("id"))
     })
 
     $( "#portafolio" ).on( "pagebeforeshow", function( event ) { 
         $('#portafolio li').removeClass('ui-btn-active ui-focus');
-    } )
+    })
+
+
+    $("#puntuar ").on("pagebeforeshow", function(event){
+        $("#input-puntos").val(1).slider('refresh');
+        $("#input-tipo").val("").selectmenu('refresh');
+        $("#input-opinion").val("")
+        $("#puntuar .ui-btn-active").removeClass("ui-btn-active ui-focus")
+    })
     
 })
 
@@ -50,7 +56,6 @@ $( document ).on( "ready", function( event ){
     despues de que cambia la url
 */
 var Contenido = {
-
     // Carga el contenido segun la petición de página que le halla llegado
     cargar: function( href ){
         if( href == "#map-page" ){

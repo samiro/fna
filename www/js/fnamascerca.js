@@ -262,7 +262,7 @@ var MapaObjeto = {
         MapaAtributos.mapa.setZoom(15);
 
         //Ésta instrucción debe estar habilitada para que funcione en Manizales
-        //MapaAtributos.ciudad = ''
+        MapaAtributos.ciudad = ''
 
         if(MapaAtributos.ciudad != ''){
             url += "&$filter=municipio='"+MapaAtributos.ciudad+"'"
@@ -389,10 +389,6 @@ var MapaObjeto = {
     //
     //Mostrar la ventana de la puntuación
     mostrar_puntuacion: function(){
-        $("#input-puntos").val(1).slider('refresh');
-        $("#input-tipo").val("").selectmenu('refresh');
-        $("#input-opinion").val("")
-
         $.mobile.changePage("#puntuar", {transition: 'pop', role: 'dialog'})
     },
     //
